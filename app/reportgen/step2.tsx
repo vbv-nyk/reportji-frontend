@@ -1,8 +1,9 @@
 import ButtonYellow1 from "../Components/Buttons/ButtonYellow1";
+import ButtonYellow2 from "../Components/Buttons/ButtonYellow2";
 
 export default function Step2() {
   return (
-    <div className="flex flex-col p-4 gap-4 bg-gray-300 ">
+    <div className="flex flex-col p-8 rounded-lg gap-4 bg-gray-300 ">
       <div className="flex gap-8 justify-between">
         <select
           id="types"
@@ -22,7 +23,7 @@ export default function Step2() {
         </div>
       </div>
       <div className="self-center">
-        <ButtonYellow1 content="Submit" onClick={()=>{}}/>
+        <ButtonYellow2 content="Submit" onClick={()=>{}}/>
       </div>
     </div>
   );

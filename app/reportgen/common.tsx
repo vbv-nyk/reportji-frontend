@@ -6,12 +6,13 @@ export function Common() {
     </div>
 }
 
-export function Progress() {
+export function Progress({pageNumber}: {pageNumber: Number}) {
+    let color = pageNumber == 1? "#6b7280": "#ffff";
    return <>
-            <button className="border-gray-500 text-gray-500  font-bold border-2 px-[10px] text-sm py-1 rounded-[100%]">
+            <button style={{color, borderColor: color}} className="border-gray-500 text-gray-500  font-bold border-2 px-[10px] text-sm py-1 rounded-[100%]">
               1
             </button>
-            <div className="w-20 border border-gray-500"></div>
+            <div style={{color, borderColor: color}} className="w-20 border border-gray-500"></div>
             <button className="text-gray-500 font-bold border-2 border-gray-500 px-[10px] text-sm py-1 rounded-[100%]">
               2
             </button>

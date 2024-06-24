@@ -22,7 +22,7 @@ export default function Page() {
             <Common />
           </div>
           <div className="flex items-center justify-center row-start-3 row-end-4 col-start-2 col-end-4">
-            <Progress />
+            <Progress pageNumber={currentPage} />
           </div>
         </div>
       </div>
