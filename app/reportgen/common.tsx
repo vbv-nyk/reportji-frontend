@@ -8,11 +8,11 @@ export function Common() {
 
 export function Progress() {
    return <>
-            <button className="text-white font-bold border-2 px-4 text-md py-2 rounded-[100%]">
+            <button className="border-gray-500 text-gray-500  font-bold border-2 px-[10px] text-sm py-1 rounded-[100%]">
               1
             </button>
-            <div className="w-28 border border-gray-500"></div>
-            <button className="text-gray-500 font-bold border-2 border-gray-500 px-4 text-md py-2 rounded-[100%]">
+            <div className="w-20 border border-gray-500"></div>
+            <button className="text-gray-500 font-bold border-2 border-gray-500 px-[10px] text-sm py-1 rounded-[100%]">
               2
             </button>
    </> 
