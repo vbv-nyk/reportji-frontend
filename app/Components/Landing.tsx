@@ -1,5 +1,6 @@
 export default function Landing() {
-    return <div className="grid grid-cols-2 h-screen bg-[#01162B] ">
+  return (
+    <div className="grid grid-cols-2 h-screen bg-[#01162B] ">
         <div className="pl-20 grid grid-rows-[160px_auto]">
                 <img className="h-full" src="logo.jpeg"></img>
             <div className="h-full flex-col pt-20 gap-8 pl-16  flex text-white font-extrabold">
@@ -22,4 +23,5 @@ export default function Landing() {
             </div>
         </div>
     </div>
+  );
 }
