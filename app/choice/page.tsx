@@ -1,21 +1,25 @@
-"use client";
-
+import Link from "next/link";
 import ButtonBlue1 from "../Components/Buttons/ButtonBlue1";
 import ButtonWhite2 from "../Components/Buttons/ButtonWhite2";
 import Navbar from "../Components/Navbar";
+import Logo1 from "../Components/Images/Logo1";
 
 export default function Page() {
     return <>
         <div className="h-screen grid grid-cols-2">
             <div className="flex flex-col items-center">
-                    <img className="h-40 self-start -mb-16" src="images/logo_white.png"></img>
+                    <div className="-mb-16 self-start">
+                        <Logo1/>
+                    </div>
                     <img className="h-[300px] " src="images/generate_report.png"></img>
                     <div className="flex flex-col items-center gap-4">
                         <div className="flex flex-col">
                             <p className="font-extrabold">Add Content And Get Your Report Ready In Minutes!</p>
                             <div className="text-center text-xl font-extrabold uppercase">T<span className="underline underline-offset-8">ry no</span>w!</div>
                         </div>
-                        <ButtonBlue1/>
+                        <Link href={"/reportgen"}>
+                            <ButtonBlue1/>
+                        </Link>
                     </div>
             </div>
             <div className="h-full grid grid-rows-[100px_auto] bg-[#00162B]">

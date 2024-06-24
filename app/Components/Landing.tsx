@@ -1,12 +1,13 @@
 import Link from "next/link";
 import Navbar from "./Navbar";
 import ButtonWhite1 from "./Buttons/ButtonWhite1";
+import Logo2 from "./Images/Logo2";
 
 export default function Landing() {
   return (
     <div className="grid grid-cols-[2fr_3fr] h-screen bg-[#01162B] ">
       <div className="pl-20 grid grid-rows-[160px_auto]">
-        <img className="h-full" src="images/logo_blue.png"></img>
+        <Logo2/>
         <div className="h-full flex-col pt-20 gap-8 pl-16  flex text-white font-extrabold">
           <div className="flex flex-col text-3xl ">
             <div>Report Making</div>
