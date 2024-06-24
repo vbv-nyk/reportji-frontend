@@ -1,6 +1,12 @@
-export default function Step1(){ 
+import { Dispatch, SetStateAction } from "react";
+import ButtonYellow1 from "../Components/Buttons/ButtonYellow1";
+
+export default function Step1({setCurrentPage} : {setCurrentPage: Dispatch<SetStateAction<number>>}){ 
+    function nextPage() {
+        setCurrentPage(2);
+    } 
     return (<div className="h-full flex flex-col gap-20 items-center justify-around">
         <input className="px-2 py-3 w-full rounded-lg text-center font-extrabold text-xl" placeholder="Enter The Chapter Name Here"/>
-        <button className="bg-[#FFB800] py-3 px-12 text-lg text-white font-extrabold rounded-3xl">Next</button>
+        <ButtonYellow1 content={"Next"} onClick={nextPage}/>
     </div>)
 }

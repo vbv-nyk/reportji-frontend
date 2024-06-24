@@ -1,9 +1,13 @@
+"use client"
+import { useState } from "react";
 import Logo2 from "../Components/Images/Logo2";
 import Navbar from "../Components/Navbar";
 import { Common, Progress } from "./common";
 import Step1 from "./step1";
+import Step2 from "./step2";
 
 export default function Page() {
+    const [currentPage, setCurrentPage] = useState(1);
   return (
     <div className="h-screen pt-6 bg-[#01162B] flex flex-col gap-4">
       <div className=" grid grid-rows-[230px_0px] grid-cols-2">
@@ -22,8 +26,9 @@ export default function Page() {
           </div>
         </div>
       </div>
-        <div className="col-start-1 col-end-3 w-1/2 mx-auto">
-          <Step1 />
+        <div className="col-start-1 col-end-3 w-10/12 mx-auto">
+          {currentPage == 1 && <Step1 setCurrentPage={setCurrentPage}/>}
+          {currentPage == 2 && <Step2 />}
         </div>
     </div>
   );
