@@ -23,7 +23,9 @@ export default function Page() {
                     </div>
             </div>
             <div className="h-full grid grid-rows-[100px_auto] bg-[#00162B]">
-                <Navbar/>
+                <div className="w-full place-self-center self-center max-w-[500px] ">
+                    <Navbar/>
+                </div>
                 <div>
                     <img className="px-12 -mt-[8px] h-[300px] min-w-[300px]" src="images/file_conversion.png"></img>
                     <div className="flex flex-col items-center gap-4">

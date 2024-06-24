@@ -21,7 +21,9 @@ export default function Landing() {
         </div>
       </div>
       <div className="h-full grid grid-rows-[100px_auto]">
-        <Navbar />
+        <div className="w-full place-self-center self-center max-w-[500px] ">
+          <Navbar />
+        </div>
         <div className="h-full pr-20">
           <div className="h-full grid grid-rows-[25%_25%_25%_25%] justify-items-start items-center  grid-cols-3">
             <img
