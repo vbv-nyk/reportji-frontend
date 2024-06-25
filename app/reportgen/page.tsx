@@ -9,7 +9,7 @@ import Step2 from "./step2";
 export default function Page() {
     const [currentPage, setCurrentPage] = useState(1);
   return (
-    <div className="h-screen pt-6 bg-[#01162B] flex flex-col gap-4">
+    <div className="pt-6 bg-[#01162B] flex flex-col gap-4 min-h-screen h-max">
       <div className=" grid grid-rows-[230px_0px] grid-cols-2">
         <div className="grid grid-cols-4 grid-rows-[100px_50px_80px] row-start-1 row-end-3 col-start-1 col-end-3">
           <div className="pl-10 row-start-1 row-end-3 col-start-1 col-end-2">

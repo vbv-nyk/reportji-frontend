@@ -59,3 +59,20 @@ export function getElementType(input: String) : ElementType {
     return ElementType.INVALID;
    
 }
+
+export default function getElementName(type: ElementType) : String {
+    switch(type)  {
+          case ElementType.AUTHOR: return "Author";
+          case ElementType.CITATIONS: return "Citations";
+          case ElementType.DATE: return "Date";
+          case ElementType.DIFFERENCES: return "Table";
+          case ElementType.FIGURES: return "Figures";
+          case ElementType.HEADING: return "Heading";
+          case ElementType.INVALID: return "Invalid";
+          case ElementType.ITEMS: return "Items";
+          case ElementType.PARAGRAPHS: return "Paragraphs";
+          case ElementType.SUBTITLE: return "Subtitle";
+          case ElementType.TITLE: return "Title";
+          default: return ""
+    }
+}
