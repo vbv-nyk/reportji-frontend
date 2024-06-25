@@ -11,62 +11,28 @@ enum ElementType {
     DIFFERENCES
 }
 
-type HeadingElement = {
-    type: ElementType,
-    content: String
-}
 
-type DifferencesElement = {
+export type DifferencesElement = {
     type: ElementType,
     content: String[][]
 }
 
-type CitationsElement = {
-    types:ElementType,
-    content: String[]
-}
 
-type FiguresElement = {
-    type: ElementType,
-    content: String[]
-}
-
-type ItemsElement = {
-    type: ElementType,
-    content: String[]
-}
-
-type ParagraphsElement = {
-    type: ElementType,
-    content: String[]
-}
-
-type AuthorElement = {
+export type ScalarElement = {
     type: ElementType,
     content: String
 }
 
-type SubtitleElement ={
+export type VectorElement = {
     type: ElementType,
-    content: String
+    content: String[]
 }
 
-type TitleElement = {
-    type: ElementType,
-    content: String
+export type PdfElement = {
+    element: ScalarElement | VectorElement
 }
 
-type DateElement = {
-    type: ElementType, 
-    content: String
-}
-
-
-type PdfElement = {
-    element: TitleElement | DateElement | SubtitleElement | HeadingElement | AuthorElement | ParagraphsElement | ItemsElement | FiguresElement | CitationsElement | DifferencesElement
-}
-
-type Page = {
+export type Page = {
     elements: PdfElement[]
 }
 

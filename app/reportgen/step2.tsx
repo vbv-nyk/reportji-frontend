@@ -12,8 +12,14 @@ export default function Step2() {
         >
           <option value="Title">Title</option>
           <option value="Subtitle">Subtitle</option>
+          <option value="Heading">Heading</option>
           <option value="Author">Author</option>
           <option value="Date">Date</option>
+          <option value="Paragraphs">Paragraphs</option>
+          <option value="Items">Items</option>
+          <option value="Figures">Figures</option>
+          <option value="Citations">Citations</option>
+          <option value="Differences">Differences</option>
         </select>
         <div className="w-full">
           <input
