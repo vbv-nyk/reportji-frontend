@@ -26,7 +26,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-        <div className="col-start-1 col-end-3 w-10/12 mx-auto">
+        <div className="h-full col-start-1 pb-5 col-end-3 w-10/12 mx-auto">
           {currentPage == 1 && <Step1 setCurrentPage={setCurrentPage}/>}
           {currentPage == 2 && <Step2 />}
         </div>

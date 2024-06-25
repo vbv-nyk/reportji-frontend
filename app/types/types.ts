@@ -1,4 +1,4 @@
-enum ElementType {
+export enum ElementType {
     TITLE,
     SUBTITLE,
     HEADING,
@@ -6,9 +6,17 @@ enum ElementType {
     DATE,
     PARAGRAPHS,
     ITEMS,
-    FIGUREs,
+    FIGURES,
     CITATIONS,
-    DIFFERENCES
+    DIFFERENCES,
+    INVALID,
+}
+
+export enum ElementParentType {
+    SCALAR,
+    VECTOR,
+    TABLES,
+    INVALID
 }
 
 
@@ -29,6 +37,7 @@ export type VectorElement = {
 }
 
 export type PdfElement = {
+    type: ElementParentType,
     element: ScalarElement | VectorElement
 }
 
