@@ -16,19 +16,25 @@ export default function Step2() {
 
   const addElement = () => {
     let elementType = getElementType(currentType);
-    let content: String | undefined;
+    let content: String;
     const parentType = getParentType(currentType);
 
     if(inputElement != null && parentType == ElementParentType.SCALAR) {
-      content = inputElement.current?.value;
-      if(!content) return;
-      setElements([...elements, {type: parentType, element: {content, type: elementType}}]) ;
+      if(inputElement.current) {
+        content = inputElement.current.value;
+        if(content === "") return;
+        setElements([...elements, {type: parentType, element: {content, type: elementType}}]) ;
+        inputElement.current.value = "";
+      }
     }
     
     if(textAreaElement != null && parentType == ElementParentType.VECTOR) {
-      content = textAreaElement.current?.value;
-      if(!content) return;
-      setElements([...elements, {type: parentType, element: {content, type: elementType}}]) ;
+      if(textAreaElement.current) {
+        content = textAreaElement.current.value;
+        if(content === "") return;
+        setElements([...elements, {type: parentType, element: {content, type: elementType}}]) ;
+        textAreaElement.current.value = "";
+      }
     }
     
   }
