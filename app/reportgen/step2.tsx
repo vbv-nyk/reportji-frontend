@@ -91,9 +91,9 @@ export default function Step2() {
     }
   };
   return (
-    <>
-      <div className="flex  flex-col px-8 py-4 rounded-lg gap-4 h-max bg-gray-300 ">
+    <div className="flex flex-col gap-8 w-full">
         <Accordion elements={elements}/>
+      <div className="flex  flex-col px-8 py-4 rounded-lg gap-4 h-max bg-gray-300 w-full">
         <div className="flex flex-col gap-4 justify-between">
           <select
             id="types"
@@ -118,6 +118,6 @@ export default function Step2() {
           <ButtonYellow2 content="Add Element" onClick={addElement} />
         </div>
       </div>
-    </>
+    </div>
   );
 }
