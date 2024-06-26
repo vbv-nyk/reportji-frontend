@@ -22,18 +22,18 @@ export enum ElementParentType {
 
 export type DifferencesElement = {
     type: ElementType,
-    content: String[][]
+    content: string[][]
 }
 
 
 export type ScalarElement = {
     type: ElementType,
-    content: String
+    content: string
 }
 
 export type VectorElement = {
     type: ElementType,
-    content: String[]
+    content: string[]
 }
 
 export type PdfElement = {

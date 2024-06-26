@@ -16,109 +16,21 @@ import getElementName, {
   getParentType,
 } from "../types/elements";
 import Accordion from "./Accordion/accordion";
+import { TakeInput } from "./common";
 
 export default function Step2() {
+  const [editIndex, setEditIndex] = useState(-1);
   const [currentType, setCurrentType] = useState("Title");
   const [elements, setElements] = useState<PdfElement[]>([]);
-  const inputElement = useRef<HTMLInputElement>(null);
-  const textAreaElement = useRef<HTMLTextAreaElement>(null);
+  const content = "";
 
-  const changeType = (e: ChangeEvent<HTMLSelectElement>) => {
-    setCurrentType(e.target.value);
-  };
-
-  const addElement = () => {
-    let elementType = getElementType(currentType);
-    let content: String;
-    const parentType = getParentType(currentType);
-
-    if (inputElement != null && parentType == ElementParentType.SCALAR) {
-      if (inputElement.current) {
-        content = inputElement.current.value;
-        if (content === "") return;
-        setElements([
-          ...elements,
-          { type: parentType, element: { content, type: elementType } },
-        ]);
-        inputElement.current.value = "";
-      }
-    }
-
-    if (textAreaElement != null && parentType == ElementParentType.VECTOR) {
-      if (textAreaElement.current) {
-        content = textAreaElement.current.value;
-        if (content === "") return;
-        setElements([
-          ...elements,
-          { type: parentType, element: { content, type: elementType } },
-        ]);
-        textAreaElement.current.value = "";
-      }
-    }
-  };
-
-  
-    
-
-  const GetCurrentInput = () => {
-    switch (currentType) {
-      case "Title":
-      case "Subtitle":
-      case "Heading":
-      case "Author":
-      case "Date":
-        return (
-          <div className="w-full">
-            <input
-              ref={inputElement}
-              className="w-full py-4 pl-4 font-semibold placeholder:text-gray-500 rounded-md"
-              placeholder="Add Your Text Here......"
-            />
-          </div>
-        );
-      case "Paragraphs":
-      case "Items":
-      case "Figures":
-      case "Citations":
-        return (
-          <div className="w-full flex-grow h-full">
-            <textarea
-              ref={textAreaElement}
-              className="w-full h-full font-semibold rounded-lg p-4 resize-none"
-              placeholder="Enter your data, every new paragraph/item starts at a new line."
-            />
-          </div>
-        );
-    }
-  };
+  const props = {currentType, setCurrentType, setElements, elements, editIndex, setEditIndex, content};
   return (
     <div className="flex flex-col gap-8 w-full">
-        <Accordion elements={elements}/>
-      <div className="flex  flex-col px-8 py-4 rounded-lg gap-4 h-max bg-gray-300 w-full">
-        <div className="flex flex-col gap-4 justify-between">
-          <select
-            id="types"
-            name="types"
-            className="bg-white font-bold flex-grow w-fit rounded-md pl-3 pr-4 py-3"
-            onChange={changeType}
-          >
-            <option value="Title">Title</option>
-            <option value="Subtitle">Subtitle</option>
-            <option value="Heading">Heading</option>
-            <option value="Author">Author</option>
-            <option value="Date">Date</option>
-            <option value="Paragraphs">Paragraphs</option>
-            <option value="Items">Items</option>
-            <option value="Figures">Figures</option>
-            <option value="Citations">Citations</option>
-            <option value="Differences">Differences</option>
-          </select>
-          {GetCurrentInput()}
-        </div>
-        <div className="self-start justify-self-end">
-          <ButtonYellow2 content="Add Element" onClick={addElement} />
-        </div>
-      </div>
+        <Accordion {...props}/>
+      {editIndex == -1 && 
+        <TakeInput {...props}/>
+      }
     </div>
   );
 }

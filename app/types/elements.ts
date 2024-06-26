@@ -12,7 +12,7 @@ export function Table(input: DifferencesElement) : DifferencesElement {
     return {...input}
 }
 
-export function getParentType(input: String) : ElementParentType{
+export function getParentType(input: string) : ElementParentType{
     switch(input) {
        case "Heading":
        case "Title":
@@ -32,7 +32,7 @@ export function getParentType(input: String) : ElementParentType{
     return ElementParentType.INVALID;
 }
 
-export function getElementType(input: String) : ElementType {
+export function getElementType(input: string) : ElementType {
     switch(input) {
        case "Heading":
             return ElementType.HEADING;
@@ -60,7 +60,7 @@ export function getElementType(input: String) : ElementType {
    
 }
 
-export default function getElementName(type: ElementType) : String {
+export default function getElementName(type: ElementType) : string {
     switch(type)  {
           case ElementType.AUTHOR: return "Author";
           case ElementType.CITATIONS: return "Citations";
