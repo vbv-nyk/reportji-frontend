@@ -20,11 +20,12 @@ import { TakeInput } from "./common";
 
 export default function Step2() {
   const [editIndex, setEditIndex] = useState(-1);
-  const [currentType, setCurrentType] = useState("Title");
   const [elements, setElements] = useState<PdfElement[]>([]);
   const content = "";
+  const defaultType = "Title";
 
-  const props = {currentType, setCurrentType, setElements, elements, editIndex, setEditIndex, content};
+
+  const props = { defaultType, setElements, elements, editIndex, setEditIndex, content};
   return (
     <div className="flex flex-col gap-8 w-full">
         <Accordion {...props}/>

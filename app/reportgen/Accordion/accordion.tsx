@@ -1,12 +1,9 @@
-import ButtonYellow1 from "@/app/Components/Buttons/ButtonYellow1";
 import ButtonYellow2 from "@/app/Components/Buttons/ButtonYellow2";
 import getElementName from "@/app/types/elements";
-import { PdfElement } from "@/app/types/types";
-import { Dispatch, SetStateAction, useState } from "react";
 import { Step2Props, TakeInput } from "../common";
 
 export default function Accordion(props: Step2Props) {
-  const {currentType, setCurrentType, setElements, elements, setEditIndex, editIndex}  = props;
+  const { elements, setEditIndex, editIndex}  = props;
   const editContent = (index: number) => {
     setEditIndex(index);
   };
@@ -32,7 +29,7 @@ export default function Accordion(props: Step2Props) {
           </div>
         )}
         {editIndex === index && <div>
-          <TakeInput {...props} content={element.element.content.toString()}/>
+          <TakeInput {...props} content={element.element.content.toString()} defaultType={elementName}/>
           </div>}
       </>
     );
