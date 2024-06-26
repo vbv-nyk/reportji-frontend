@@ -84,7 +84,8 @@ export default function Step2() {
           <div className="w-full flex-grow h-full">
             <textarea
               ref={textAreaElement}
-              className="w-full h-full rounded-lg p-4 resize-none"
+              className="w-full h-full font-semibold rounded-lg p-4 resize-none"
+              placeholder="Enter your data, every new paragraph/item starts at a new line."
             />
           </div>
         );
@@ -98,7 +99,7 @@ export default function Step2() {
           <select
             id="types"
             name="types"
-            className="bg-white font-bold w-fit rounded-md pl-3 pr-4 py-3"
+            className="bg-white font-bold flex-grow w-fit rounded-md pl-3 pr-4 py-3"
             onChange={changeType}
           >
             <option value="Title">Title</option>
