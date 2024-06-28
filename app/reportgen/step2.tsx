@@ -19,12 +19,21 @@ import getElementName, {
 } from "../types/elements";
 import Accordion from "./Accordion/accordion";
 import { ReportGenCommonProps, TakeInput } from "./common";
+import { CurrentView } from "./types";
 
 export default function Step2(props: ReportGenCommonProps) {
   const [editIndex, setEditIndex] = useState(-1);
   const [elements, setElements] = useState<Page>([]);
   const content = "";
   const defaultType = "Title";
+  
+  const {setPages, currentPage, pages} = props;
+  function saveCurrentPage() {
+      const pagesClone = pages.map(page => page);
+      pagesClone[currentPage] = elements;
+      setPages(pagesClone);
+      setCurrentView(CurrentView.SHOW_PAGES_VIEW);
+  }
 
 
   const {setCurrentView} = props;
@@ -36,7 +45,7 @@ export default function Step2(props: ReportGenCommonProps) {
         <TakeInput {...current_props}/>
       }
       <div className="flex gap-3">
-        <ButtonYellow2 content={"Save Chapter"} onClick={()=>setCurrentView(1)}/>
+        <ButtonYellow2 content={"Save Chapter"} onClick={()=>{saveCurrentPage()}}/>
       </div>
     </div>
   );
