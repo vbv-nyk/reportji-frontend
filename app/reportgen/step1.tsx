@@ -1,7 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 import ButtonYellow1 from "../Components/Buttons/ButtonYellow1";
+import {  ReportGenCommonProps } from "./common";
 
-export default function Step1({setCurrentView} : {setCurrentView: Dispatch<SetStateAction<number>>}){ 
+export default function Step1(props: ReportGenCommonProps){ 
+    const {setCurrentView} = props;
     function nextPage() {
         setCurrentView(2);
     } 

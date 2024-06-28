@@ -8,8 +8,9 @@ import {
   useState,
 } from "react";
 import getElementName, { getElementType, getParentType } from "../types/elements";
-import { ElementParentType, PdfElement } from "../types/types";
+import { ElementParentType, Page, Pages} from "../types/types";
 import ButtonYellow2 from "../Components/Buttons/ButtonYellow2";
+import { CurrentView } from "./types";
 
 export function Common() {
   return (
@@ -85,9 +86,18 @@ export function GetCurrentInput  (
   }
 };
 
+export type ReportGenCommonProps = {
+  currentView: CurrentView,
+  setCurrentView :  Dispatch<SetStateAction<number>>
+  pages: Pages,
+  setPages: Dispatch<SetStateAction<Pages>>,
+  currentPage: number,
+  setCurrentPage: Dispatch<SetStateAction<number>>
+}
+
 export type Step2Props = {
-  setElements: Dispatch<SetStateAction<PdfElement[]>>;
-  elements: PdfElement[];
+  setElements: Dispatch<SetStateAction<Page>>;
+  elements: Page;
   editIndex: number;
   setEditIndex: Dispatch<SetStateAction<number>>;
   content: string | string[];

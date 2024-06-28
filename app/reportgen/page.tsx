@@ -6,9 +6,15 @@ import { Common, Progress } from "./common";
 import Step1 from "./step1";
 import Step2 from "./step2";
 import { CurrentView } from "./types";
+import { Pages } from "../types/types";
+
 
 export default function Page() {
   const [currentView, setCurrentView] = useState(CurrentView.SHOW_PAGES_VIEW);
+  const [pages, setPages] = useState<Pages>([])
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  
+  const props = {currentView, setCurrentView, pages, setPages, currentPage, setCurrentPage};
   return (
     <div className="pt-6 bg-[#01162B] flex flex-col gap-4 min-h-screen h-max">
       <div className=" grid grid-rows-[230px_0px] grid-cols-2">
@@ -28,8 +34,8 @@ export default function Page() {
         </div>
       </div>
         <div className="h-full col-start-1 pb-5 col-end-3 w-10/12 mx-auto">
-          {currentView == CurrentView.ENTER_CHAPTER_VIEW && <Step1 setCurrentView={setCurrentView}/>}
-          {currentView == CurrentView.ENTER_CONTENT_VIEW && <Step2 setCurrentView={setCurrentView}/>}
+          {currentView == CurrentView.ENTER_CHAPTER_VIEW && <Step1  {...props}/>}
+          {currentView == CurrentView.ENTER_CONTENT_VIEW && <Step2 {...props}/>}
         </div>
     </div>
   );
