@@ -1,9 +1,11 @@
 import {
   ChangeEvent,
   ChangeEventHandler,
+  Dispatch,
   LegacyRef,
   MouseEventHandler,
   RefObject,
+  SetStateAction,
   useEffect,
   useRef,
   useState,
@@ -18,7 +20,7 @@ import getElementName, {
 import Accordion from "./Accordion/accordion";
 import { TakeInput } from "./common";
 
-export default function Step2() {
+export default function Step2({setCurrentView} : {setCurrentView: Dispatch<SetStateAction<number>>}) {
   const [editIndex, setEditIndex] = useState(-1);
   const [elements, setElements] = useState<PdfElement[]>([]);
   const content = "";
@@ -32,6 +34,9 @@ export default function Step2() {
       {editIndex == -1 && 
         <TakeInput {...props}/>
       }
+      <div className="flex gap-3">
+        <ButtonYellow2 content={"Save Chapter"} onClick={()=>setCurrentView(1)}/>
+      </div>
     </div>
   );
 }
