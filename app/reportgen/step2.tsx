@@ -22,12 +22,12 @@ import { ReportGenCommonProps, TakeInput } from "./common";
 import { CurrentView } from "./types";
 
 export default function Step2(props: ReportGenCommonProps) {
+  const {setPages, currentPage, pages} = props;
   const [editIndex, setEditIndex] = useState(-1);
-  const [elements, setElements] = useState<Page>([]);
+  const [elements, setElements] = useState<Page>(pages[currentPage] || []);
   const content = "";
   const defaultType = "Title";
   
-  const {setPages, currentPage, pages} = props;
   function saveCurrentPage() {
       const pagesClone = pages.map(page => page);
       pagesClone[currentPage] = elements;
