@@ -24,20 +24,20 @@ import { CurrentView } from "./types";
 export default function Step2(props: ReportGenCommonProps) {
   const {setPages, currentPage, pages} = props;
   const [editIndex, setEditIndex] = useState(-1);
-  const [elements, setElements] = useState<Page>(pages[currentPage] || []);
+  const [page, setPage] = useState<Page>(pages[currentPage]);
   const content = "";
   const defaultType = "Title";
   
   function saveCurrentPage() {
       const pagesClone = pages.map(page => page);
-      pagesClone[currentPage] = elements;
+      pagesClone[currentPage] = page;
       setPages(pagesClone);
       setCurrentView(CurrentView.SHOW_PAGES_VIEW);
   }
 
 
   const {setCurrentView} = props;
-  const current_props = { defaultType, setElements, elements, editIndex, setEditIndex, content};
+  const current_props = { defaultType, setPage, page, editIndex, setEditIndex, content};
   return (
     <div className="flex flex-col gap-8 w-full">
         <Accordion {...current_props}/>

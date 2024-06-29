@@ -3,12 +3,12 @@ import getElementName from "@/app/types/elements";
 import { Step2Props, TakeInput } from "../common";
 
 export default function Accordion(props: Step2Props) {
-  const { elements, setEditIndex, editIndex}  = props;
+  const { page, setEditIndex, editIndex } = props;
   const editContent = (index: number) => {
     setEditIndex(index);
   };
 
-  const elementsJSX = elements.map((element, index) => {
+  const elementsJSX = page.elements.map((element, index) => {
     const elementName = getElementName(element.element.type);
     return (
       <>
@@ -28,9 +28,15 @@ export default function Accordion(props: Step2Props) {
             </div>
           </div>
         )}
-        {editIndex === index && <div>
-          <TakeInput {...props} content={element.element.content.toString()} defaultType={elementName}/>
-          </div>}
+        {editIndex === index && (
+          <div>
+            <TakeInput
+              {...props}
+              content={element.element.content.toString()}
+              defaultType={elementName}
+            />
+          </div>
+        )}
       </>
     );
   });

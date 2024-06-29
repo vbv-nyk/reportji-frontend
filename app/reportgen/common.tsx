@@ -7,8 +7,11 @@ import {
   useRef,
   useState,
 } from "react";
-import getElementName, { getElementType, getParentType } from "../types/elements";
-import { ElementParentType, Page, Pages} from "../types/types";
+import getElementName, {
+  getElementType,
+  getParentType,
+} from "../types/elements";
+import { ElementParentType, Page, Pages } from "../types/types";
 import ButtonYellow2 from "../Components/Buttons/ButtonYellow2";
 import { CurrentView } from "./types";
 
@@ -44,15 +47,13 @@ export function Progress({ pageNumber }: { pageNumber: Number }) {
 }
 
 type GetCurrentInputProps = {
-  inputElement: RefObject<HTMLInputElement>,
-  textAreaElement: RefObject<HTMLTextAreaElement>,
-  currentType: string,
-  content: string | string[]
-}
-export function GetCurrentInput  (
-  props: GetCurrentInputProps
-)  {
-  const {content,currentType,inputElement,textAreaElement} = props;
+  inputElement: RefObject<HTMLInputElement>;
+  textAreaElement: RefObject<HTMLTextAreaElement>;
+  currentType: string;
+  content: string | string[];
+};
+export function GetCurrentInput(props: GetCurrentInputProps) {
+  const { content, currentType, inputElement, textAreaElement } = props;
   switch (currentType) {
     case "Title":
     case "Subtitle":
@@ -84,35 +85,29 @@ export function GetCurrentInput  (
         </div>
       );
   }
-};
-
-export type ReportGenCommonProps = {
-  currentView: CurrentView,
-  setCurrentView :  Dispatch<SetStateAction<number>>
-  pages: Pages,
-  setPages: Dispatch<SetStateAction<Pages>>,
-  currentPage: number,
-  setCurrentPage: Dispatch<SetStateAction<number>>
 }
 
+export type ReportGenCommonProps = {
+  currentView: CurrentView;
+  setCurrentView: Dispatch<SetStateAction<number>>;
+  pages: Pages;
+  setPages: Dispatch<SetStateAction<Pages>>;
+  currentPage: number;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
+};
+
 export type Step2Props = {
-  setElements: Dispatch<SetStateAction<Page>>;
-  elements: Page;
+  setPage: Dispatch<SetStateAction<Page>>;
+  page: Page;
   editIndex: number;
   setEditIndex: Dispatch<SetStateAction<number>>;
   content: string | string[];
-  defaultType: string
+  defaultType: string;
 };
 
 export function TakeInput(props: Step2Props) {
-  const {
-    setElements,
-    elements,
-    content,
-    editIndex,
-    defaultType,
-    setEditIndex,
-  } = props;
+  const { setPage, page, content, editIndex, defaultType, setEditIndex } =
+    props;
   const inputElement = useRef<HTMLInputElement>(null);
   const textAreaElement = useRef<HTMLTextAreaElement>(null);
   const [currentType, setCurrentType] = useState(defaultType);
@@ -131,12 +126,15 @@ export function TakeInput(props: Step2Props) {
         content = inputElement.current.value;
         if (content === "") return;
         if (editIndex === -1) {
-          setElements([
-            ...elements,
-            { type: parentType, element: { content, type: elementType } },
-          ]);
+          setPage({
+            name: page.name,
+            elements: [
+              ...page.elements,
+              { type: parentType, element: { content, type: elementType } },
+            ],
+          });
         } else {
-          const newElements = elements.map((element, index) => {
+          const newElements = page.elements.map((element, index) => {
             if (index === editIndex) {
               element.element.content = content;
               element.element.type = elementType;
@@ -146,7 +144,7 @@ export function TakeInput(props: Step2Props) {
               return element;
             }
           });
-          setElements(newElements);
+          setPage({ name: page.name, elements: newElements });
           setEditIndex(-1);
           console.log(newElements);
         }
@@ -159,13 +157,16 @@ export function TakeInput(props: Step2Props) {
         content = textAreaElement.current.value;
         if (content === "") return;
         if (editIndex === -1) {
-          setElements([
-            ...elements,
-            { type: parentType, element: { content, type: elementType } },
-          ]);
+          setPage({
+            name: page.name,
+            elements: [
+              ...page.elements,
+              { type: parentType, element: { content, type: elementType } },
+            ],
+          });
         } else {
-          const newElements = elements.map((element,index) => {
-            if(index === editIndex) {
+          const newElements = page.elements.map((element, index) => {
+            if (index === editIndex) {
               element.element.content = content;
               element.element.type = elementType;
               element.type = parentType;
@@ -173,10 +174,10 @@ export function TakeInput(props: Step2Props) {
             } else {
               return element;
             }
-          })
-          setElements(newElements);
+          });
+          setPage({ name: page.name, elements: newElements });
           setEditIndex(-1);
-          console.log(newElements)
+          console.log(newElements);
         }
         textAreaElement.current.value = "";
       }
@@ -184,10 +185,10 @@ export function TakeInput(props: Step2Props) {
   };
 
   const deleteElement = (editIndex: number) => {
-    const newElements = elements.filter((element, index) => {
+    const newElements = page.elements.filter((element, index) => {
       return index != editIndex;
-    })
-    setElements(newElements);
+    });
+    setPage({ name: page.name, elements: newElements });
     setEditIndex(-1);
   };
   return (
@@ -211,7 +212,14 @@ export function TakeInput(props: Step2Props) {
           <option value="Citations">Citations</option>
           <option value="Differences">Differences</option>
         </select>
-        {<GetCurrentInput content={content} currentType={currentType} inputElement={inputElement} textAreaElement={textAreaElement}/>}
+        {
+          <GetCurrentInput
+            content={content}
+            currentType={currentType}
+            inputElement={inputElement}
+            textAreaElement={textAreaElement}
+          />
+        }
         <div className="self-start">
           {editIndex === -1 && (
             <ButtonYellow2

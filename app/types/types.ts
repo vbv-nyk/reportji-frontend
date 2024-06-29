@@ -41,7 +41,10 @@ export type PdfElement = {
     element: ScalarElement | VectorElement
 }
 
-export type Page = PdfElement[]
+export type Page = {
+    name: string,
+    elements: PdfElement[]
+}
 
 
 export type Pages = Page[]

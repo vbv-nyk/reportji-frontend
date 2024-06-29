@@ -25,7 +25,7 @@ export default function ViewPages(props: ReportGenCommonProps) {
        PageList = <>
         {pages.map((page,index) => {
             return <div className="flex gap-8 w-full bg-gray-300 rounded-lg px-8 py-4 justify-between items-center">
-                <div className="text-xl">Chatper {index}</div>
+                <div className="text-xl">{page.name}</div>
                 <div className="">
                     <ButtonYellow2 content={"Edit Chapter"} onClick={()=> {editChapter(index)}}/>
                 </div>
