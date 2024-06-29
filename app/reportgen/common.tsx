@@ -97,16 +97,19 @@ export type ReportGenCommonProps = {
 };
 
 export type Step2Props = {
+  currentPage: number;
   setPage: Dispatch<SetStateAction<Page>>;
   page: Page;
   editIndex: number;
   setEditIndex: Dispatch<SetStateAction<number>>;
   content: string | string[];
   defaultType: string;
+  pages: Pages;
+  setPages: Dispatch<SetStateAction<Pages>>;
 };
 
 export function TakeInput(props: Step2Props) {
-  const { setPage, page, content, editIndex, defaultType, setEditIndex } =
+  const { setPage, currentPage, page, content, editIndex, defaultType, setEditIndex, pages, setPages} =
     props;
   const inputElement = useRef<HTMLInputElement>(null);
   const textAreaElement = useRef<HTMLTextAreaElement>(null);
@@ -114,7 +117,13 @@ export function TakeInput(props: Step2Props) {
   const changeType = (e: ChangeEvent<HTMLSelectElement>) => {
     setCurrentType(e.target.value);
   };
-  console.log(content);
+  
+  
+  useEffect(() => {
+    const pagesClone = pages.map(page => page);
+    pagesClone[currentPage] = page; 
+    localStorage.setItem("pages", JSON.stringify(pagesClone));
+  }, [page])
 
   const addElement = (editIndex: number) => {
     let elementType = getElementType(currentType);
@@ -150,18 +159,22 @@ export function TakeInput(props: Step2Props) {
         }
         inputElement.current.value = "";
       }
+      
+      
     }
 
     if (textAreaElement != null && parentType == ElementParentType.VECTOR) {
       if (textAreaElement.current) {
-        content = textAreaElement.current.value;
+      content = textAreaElement.current.value;
         if (content === "") return;
+        let lines =  content.split('\n');
+        console.log(lines);
         if (editIndex === -1) {
           setPage({
             name: page.name,
             elements: [
               ...page.elements,
-              { type: parentType, element: { content, type: elementType } },
+              { type: parentType, element: { content: lines, type: elementType } },
             ],
           });
         } else {
@@ -182,6 +195,7 @@ export function TakeInput(props: Step2Props) {
         textAreaElement.current.value = "";
       }
     }
+    
   };
 
   const deleteElement = (editIndex: number) => {

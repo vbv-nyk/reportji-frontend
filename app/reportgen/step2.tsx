@@ -37,7 +37,7 @@ export default function Step2(props: ReportGenCommonProps) {
 
 
   const {setCurrentView} = props;
-  const current_props = { defaultType, setPage, page, editIndex, setEditIndex, content};
+  const current_props = { defaultType, currentPage , pages, setPages, setPage, page, editIndex, setEditIndex, content};
   return (
     <div className="flex flex-col gap-8 w-full">
         <Accordion {...current_props}/>

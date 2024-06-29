@@ -2,6 +2,7 @@ import ButtonYellow1 from "@/app/Components/Buttons/ButtonYellow1";
 import { ReportGenCommonProps } from "../common";
 import { CurrentView } from "../types";
 import ButtonYellow2 from "@/app/Components/Buttons/ButtonYellow2";
+import { PageToJi } from "./language";
 
 export default function ViewPages(props: ReportGenCommonProps) {
     const {setCurrentView, setCurrentPage, pages}  = props;
@@ -13,6 +14,10 @@ export default function ViewPages(props: ReportGenCommonProps) {
     function editChapter(index: number) {
         setCurrentPage(index);
         setCurrentView(CurrentView.ENTER_CONTENT_VIEW);
+    }
+    
+    function generateReport(){
+       PageToJi(pages);
     }
     
     let PageList;
@@ -35,8 +40,9 @@ export default function ViewPages(props: ReportGenCommonProps) {
     }
     return <div className="flex flex-col gap-5">
         {PageList}
-        <div className="">
+        <div className="flex gap-4">
             <ButtonYellow2 onClick={newChapter} content={"Add Page"}/>
+            {pages.length != 0 && <ButtonYellow2 onClick={generateReport} content={"Give Me My Report!!!"}/>}
         </div>
     </div>
 }
