@@ -17,7 +17,8 @@ export default function ViewPages(props: ReportGenCommonProps) {
     }
     
     function generateReport(){
-       PageToJi(pages);
+       let output = PageToJi(pages);
+       console.log(output);
     }
     
     let PageList;
