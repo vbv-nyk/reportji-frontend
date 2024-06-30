@@ -18,7 +18,7 @@ const CREATE_FILE = gql`
   }
 `;
 export default function ViewPages(props: ReportGenCommonProps) {
-  const { setCurrentView, setCurrentPage, pages, setOutputData} = props;
+  const { setCurrentView, setCurrentPage, pages, setPages, setOutputData} = props;
   const [getReport, { loading, error}] = useMutation(CREATE_FILE);
   
   function newChapter() {
@@ -29,6 +29,12 @@ export default function ViewPages(props: ReportGenCommonProps) {
   function editChapter(index: number) {
     setCurrentPage(index);
     setCurrentView(CurrentView.ENTER_CONTENT_VIEW);
+  }
+  function deleteChapter(index: number) {
+    const pagesClone = pages.filter((page, i) => {
+      return index != i;
+    })
+    setPages(pagesClone);
   }
 
   async function generateReport() {
@@ -59,11 +65,17 @@ export default function ViewPages(props: ReportGenCommonProps) {
           return (
             <div key={index} className="flex gap-8 w-full bg-gray-300 rounded-lg px-8 py-4 justify-between items-center">
               <div className="text-xl">{page.name}</div>
-              <div className="">
+              <div className="flex gap-4">
                 <ButtonYellow2
                   content={"Edit Chapter"}
                   onClick={() => {
                     editChapter(index);
+                  }}
+                />
+                <ButtonYellow2
+                  content={"Delete Chapter"}
+                  onClick={() => {
+                    deleteChapter(index);
                   }}
                 />
               </div>

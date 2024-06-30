@@ -18,6 +18,7 @@ export default function Page() {
   const [pages, setPages] = useState<Pages>([]);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [outputData, setOutputData] = useState<string>("");
+  const [displayRow, setDisplayRow] = useState(80);
 
   const client = new ApolloClient({
     uri: "http://localhost:4000/graphql",
@@ -42,32 +43,51 @@ export default function Page() {
     setOutputData
   };
   
-
+  const HeaderSection  = () => {
+    switch(currentView) {
+      case CurrentView.SHOW_PAGES_VIEW: 
+          return <>
+              <div className="self-end place-content-end row-start-2 row-end-3 col-start-2 col-end-4">
+                <ViewPagesHeader {...props} />
+              </div>
+            <div className="flex items-center justify-center row-start-3 row-end-4 col-start-2 col-end-4">
+              <Progress pageNumber={currentView} />
+            </div>
+          </>
+      case CurrentView.ENTER_CHAPTER_VIEW:
+      case CurrentView.ENTER_CONTENT_VIEW:
+          return <>
+                <div className="self-end place-content-end row-start-2 row-end-3 col-start-2 col-end-4">
+                  <Common />
+                </div>
+            <div className="flex items-center justify-center row-start-3 row-end-4 col-start-2 col-end-4">
+              <Progress pageNumber={currentView} />
+            </div>
+          </>
+      default: 
+        return <></>
+    }
+  }
+  
+  useEffect(() => {
+    if(currentView == CurrentView.REPORT_VIEW){
+        setDisplayRow(0);
+    } else {
+      setDisplayRow(80);
+    }
+  }, [currentView])
   return (
     <ApolloProvider client={client}>
       <div className="pt-6 bg-[#01162B] flex flex-col gap-4 min-h-screen h-max">
         <div className=" grid grid-rows-[230px_0px] grid-cols-2">
-          <div className="grid grid-cols-4 grid-rows-[100px_50px_80px] row-start-1 row-end-3 col-start-1 col-end-3">
+          <div className={`grid grid-cols-4 grid-rows-[100px_50px_${displayRow}px] row-start-1 row-end-3 col-start-1 col-end-3`}>
             <div className="pl-10 row-start-1 row-end-3 col-start-1 col-end-2">
               <Logo2 />
             </div>
             <div className="w-full justify-self-end col-start-2 col-end-5 max-w-[500px] ">
               <Navbar />
             </div>
-            {(currentView == CurrentView.SHOW_PAGES_VIEW && (
-              <div className="self-end place-content-end row-start-2 row-end-3 col-start-2 col-end-4">
-                <ViewPagesHeader {...props} />
-              </div>
-            )) || (
-              <>
-                <div className="self-end place-content-end row-start-2 row-end-3 col-start-2 col-end-4">
-                  <Common />
-                </div>
-              </>
-            )}
-            <div className="flex items-center justify-center row-start-3 row-end-4 col-start-2 col-end-4">
-              <Progress pageNumber={currentView} />
-            </div>
+            {HeaderSection()}
           </div>
         </div>
         <div className="h-full col-start-1 pb-5 col-end-3 w-10/12 mx-auto">
