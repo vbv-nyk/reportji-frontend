@@ -94,6 +94,8 @@ export type ReportGenCommonProps = {
   setPages: Dispatch<SetStateAction<Pages>>;
   currentPage: number;
   setCurrentPage: Dispatch<SetStateAction<number>>;
+  outputData: string;
+  setOutputData:  Dispatch<SetStateAction<string>>;
 };
 
 export type Step2Props = {

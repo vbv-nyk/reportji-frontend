@@ -2,6 +2,8 @@ import Link from "next/link";
 import Navbar from "./Navbar";
 import ButtonWhite1 from "./Buttons/ButtonWhite1";
 import Logo2 from "./Images/Logo2";
+import { useEffect } from "react";
+import { BACKEND_URL } from "../constants";
 
 export default function Landing() {
   return (
