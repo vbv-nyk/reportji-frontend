@@ -12,6 +12,7 @@ import ViewPagesHeader from "./ViewPages/ViewPagesHeader";
 import { json } from "stream/consumers";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import Step3 from "./step3";
+import { BACKEND_PORT, BACKEND_URL } from "../constants";
 
 export default function Page() {
   const [currentView, setCurrentView] = useState(CurrentView.SHOW_PAGES_VIEW);
@@ -21,7 +22,7 @@ export default function Page() {
   const [displayRow, setDisplayRow] = useState(80);
 
   const client = new ApolloClient({
-    uri: "http://localhost:4000/graphql",
+    uri: `http://${BACKEND_URL}:${BACKEND_PORT}/graphql`,
     cache: new InMemoryCache(),
     credentials: "include",
   });

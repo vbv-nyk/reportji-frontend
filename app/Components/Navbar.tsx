@@ -1,9 +1,9 @@
-import { BACKEND_URL } from "../constants";
-
 "use client"
+import { BACKEND_PORT, BACKEND_URL } from "../constants";
+
 export default function Navbar() {
   async function login() {
-    window.open("http://localhost:4000/auth/google", "_self");
+    window.open(`${BACKEND_URL}/auth/google`, "_self");
   }
   return (
     <div className="flex justify-between items-center px-10 font-extrabold text-white uppercase">

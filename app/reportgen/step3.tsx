@@ -27,6 +27,7 @@ export default function Step3(props: ReportGenCommonProps) {
   async function retrievePDF() {
     const data = await getPDF({ variables: { texFile: outputData } });
     const base64PDF = data.data.CreatePDF.pdf;
+    console.log(JSON.parse(base64PDF));
     setPdfData(base64PDF);
   }
   function updateContent(content: string) {
