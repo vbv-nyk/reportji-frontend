@@ -22,7 +22,7 @@ export default function Page() {
   const [displayRow, setDisplayRow] = useState(80);
 
   const client = new ApolloClient({
-    uri: `http://${BACKEND_URL}:${BACKEND_PORT}/graphql`,
+    uri: `${BACKEND_URL}/graphql`,
     cache: new InMemoryCache(),
     credentials: "include",
   });

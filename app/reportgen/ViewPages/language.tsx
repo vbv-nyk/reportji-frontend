@@ -7,6 +7,13 @@ type OutputMarkup = {
 };
 
 
+function replaceBracesWithContainers(content: string) {
+    content = content.replace(/\[.*\]/g, (match)=>`\\square{${match.substring(1,match.length -2)}}`);
+    content = content.replace(/\{.*\}/g, (match)=>`\\curly{${match.substring(1,match.length -2)}}`);
+    content = content.replace(/\".*\"/g, (match)=>`\\quotes{${match.substring(1,match.length -2)}}`);
+    content = content.replace(/\[.*\]/g, (match)=>`\\round{${match.substring(1,match.length -2)}}}`);
+    return content;
+}
 export function PageToJi(pages: Pages): string {
   const output: OutputMarkup[] = [];
 
@@ -20,13 +27,15 @@ export function PageToJi(pages: Pages): string {
     page.elements.forEach((element, eleIndex) => {
       let name = getElementName(element.element.type);
       name = name[0].toLowerCase() + name.substring(1);
-      if (element.type == ElementParentType.SCALAR) {
-        const currentElement = `\t${name}: "${element.element.content}";`;
-        outputPage.elements.push(currentElement);
+      if (element.type == ElementParentType.SCALAR && !Array.isArray(element.element.content)) {
+          let content = replaceBracesWithContainers(element.element.content);
+          const currentElement = `\t${name}: "${content}";`;
+          outputPage.elements.push(currentElement);
       } else {
         if (Array.isArray(element.element.content)) {
           const paragraphs = element.element.content.map((line, index) => {
-            return `\t\t"${line}",`;
+          let content = replaceBracesWithContainers(line);
+            return `\t\t"${content}",`;
           });
           outputPage.elements.push(`\t${name}: [\n${paragraphs.join("\n")}\n\t];`);
         }
