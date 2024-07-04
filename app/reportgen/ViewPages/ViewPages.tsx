@@ -39,6 +39,7 @@ export default function ViewPages(props: ReportGenCommonProps) {
 
   async function generateReport() {
     let inputJi = "stlyes = {\n}\n"
+    console.log(pages);
     const pagesData = PageToJi(pages);
     inputJi = inputJi.concat(`pages = {\n${pagesData}\n}\n`);
     inputJi = inputJi.concat("output = {\n}");

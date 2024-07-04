@@ -182,7 +182,7 @@ export function TakeInput(props: Step2Props) {
         } else {
           const newElements = page.elements.map((element, index) => {
             if (index === editIndex) {
-              element.element.content = content;
+              element.element.content = content.split("\n");
               element.element.type = elementType;
               element.type = parentType;
               return element;
