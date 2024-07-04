@@ -21,14 +21,14 @@ export function PageToJi(pages: Pages): string {
       let name = getElementName(element.element.type);
       name = name[0].toLowerCase() + name.substring(1);
       if (element.type == ElementParentType.SCALAR) {
-        const currentElement = `\t${name}: "${element.element.content}";`;
+        const currentElement = `${name}: "${element.element.content}";`;
         outputPage.elements.push(currentElement);
       } else {
         if (Array.isArray(element.element.content)) {
           const paragraphs = element.element.content.map((line, index) => {
-            return `\t\t"${line}",`;
+            return `"${line}",`;
           });
-          outputPage.elements.push(`\t${name}: [\n${paragraphs.join("\n")}\n\t];`);
+          outputPage.elements.push(`${name}: [\n${paragraphs.join("\n")}\n];`);
         }
       }
     });
@@ -38,11 +38,12 @@ export function PageToJi(pages: Pages): string {
   const outputPages = output.map((page) => {
     const content = page.elements.join("\n");
     const placeholder = `${page.name} = page {
-    ${content}
+${content}
 }`;
     
     return placeholder;
   }).join("\n");
 
+  
   return outputPages;
 }

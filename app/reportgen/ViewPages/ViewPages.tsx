@@ -38,7 +38,7 @@ export default function ViewPages(props: ReportGenCommonProps) {
   }
 
   async function generateReport() {
-    let inputJi = "stlyes = {\n}\n"
+    let inputJi = "styles = {\n}\n"
     inputJi = inputJi.concat(`pages = {\n${PageToJi(pages)}\n}\n`);
     inputJi = inputJi.concat("output = {\n}");
     const data = await getReport({variables: {inputJi}});
