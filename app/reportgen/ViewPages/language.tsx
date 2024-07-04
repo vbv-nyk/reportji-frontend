@@ -6,12 +6,22 @@ type OutputMarkup = {
   elements: string[];
 };
 
+function returnBlankSpace(times: number) : string{
+  let output = "";
+  
+  for(let i=0; i<times; i++) {
+    output += "     ";
+  }
+  
+  return output;
+}
 
 function replaceBracesWithContainers(content: string) {
-    content = content.replace(/\{.*\}/g, (match)=>`\\curly{${match.substring(1,match.length -1)}}`);
-    content = content.replace(/\[.*\]/g, (match)=>`\\square{${match.substring(1,match.length -1)}}`);
-    content = content.replace(/\".*\"/g, (match)=>`\\quotes{${match.substring(1,match.length -1)}}`);
-    content = content.replace(/\(.*\)/g, (match)=>`\\round{${match.substring(1,match.length -1)}}`);
+    content = content.replaceAll(/\{.*\}/g, (match)=>`\\curly{${match.substring(1,match.length -1)}}`);
+    content = content.replaceAll(/\[.*\]/g, (match)=>`\\square{${match.substring(1,match.length -1)}}`);
+    content = content.replaceAll(/\".*\"/g, (match)=>`\\quotes{${match.substring(1,match.length -1)}}`);
+    content = content.replaceAll(/\(.*\)/g, (match)=>`\\round{${match.substring(1,match.length -1)}}`);
+    console.log(content);
     return content;
 }
 export function PageToJi(pages: Pages): string {
@@ -22,7 +32,7 @@ export function PageToJi(pages: Pages): string {
       name: `page${index}`,
       elements: [],
     };
-    const heading = `heading: "${page.name}";`;
+    const heading = `${returnBlankSpace(1)}heading: "${page.name}";`;
     outputPage.elements.push(heading);
     page.elements.forEach((element, eleIndex) => {
       let name = getElementName(element.element.type);
@@ -30,16 +40,16 @@ export function PageToJi(pages: Pages): string {
       if (element.type == ElementParentType.SCALAR && !Array.isArray(element.element.content)) {
           let content = replaceBracesWithContainers(element.element.content);
           console.log(content);
-          const currentElement = `\t${name}: "${content}";`;
+          const currentElement = `${returnBlankSpace(1)}${name}: "${content}";`;
           outputPage.elements.push(currentElement);
       } else {
         if (Array.isArray(element.element.content)) {
           const paragraphs = element.element.content.map((line, index) => {
             let content = replaceBracesWithContainers(line);
             console.log(content);
-            return `\t\t"${content}",`;
+            return `${returnBlankSpace(2)}"${content}",`;
           });
-          outputPage.elements.push(`${name}: [\n${paragraphs.join("\n")}\n];`);
+          outputPage.elements.push(`${returnBlankSpace(1)}${name}: [\n${paragraphs.join("\n")}\n];`);
         }
       }
     });
