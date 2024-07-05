@@ -42,15 +42,22 @@ export function PageToJi(pages: Pages): string {
           console.log(content);
           const currentElement = `${returnBlankSpace(1)}${name}: "${content}";`;
           outputPage.elements.push(currentElement);
-      } else {
-        if (Array.isArray(element.element.content)) {
+      } else if (element.type == ElementParentType.VECTOR && Array.isArray(element.element.content)){
           const paragraphs = element.element.content.map((line, index) => {
             let content = replaceBracesWithContainers(line);
             console.log(content);
             return `${returnBlankSpace(2)}"${content}",`;
           });
           outputPage.elements.push(`${returnBlankSpace(1)}${name}: [\n${paragraphs.join("\n")}\n];`);
-        }
+      } else if(element.type == ElementParentType.FIGURES && Array.isArray(element.element.content)) {
+          const figures = element.element.content.map((figure, index) => {
+            let content = replaceBracesWithContainers(figure);
+            if(index == element.element.content.length -1) 
+              return `${returnBlankSpace(2)}{ src: "input_file.png", caption: "${content}" }`;
+            else
+              return `${returnBlankSpace(2)}{ src: "input_file.png", caption: "${content}" },`;
+          });
+          outputPage.elements.push(`${returnBlankSpace(1)}${name}: [\n${figures.join("\n")}\n${returnBlankSpace(1)}];`);
       }
     });
 
