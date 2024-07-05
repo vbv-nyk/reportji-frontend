@@ -5,6 +5,7 @@ export enum ElementType {
     AUTHOR,
     DATE,
     PARAGRAPHS,
+    CODE,
     ITEMS,
     FIGURES,
     CITATIONS,

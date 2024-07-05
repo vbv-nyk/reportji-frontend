@@ -11,7 +11,7 @@ import getElementName, {
   getElementType,
   getParentType,
 } from "../types/elements";
-import { ElementParentType, Page, Pages } from "../types/types";
+import { ElementParentType, ElementType, Page, Pages } from "../types/types";
 import ButtonYellow2 from "../Components/Buttons/ButtonYellow2";
 import { CurrentView } from "./types";
 
@@ -74,6 +74,7 @@ export function GetCurrentInput(props: GetCurrentInputProps) {
     case "Items":
     case "Figures":
     case "Citations":
+    case "Code":
       return (
         <div className="w-full flex-grow h-full">
           <textarea
@@ -167,7 +168,7 @@ export function TakeInput(props: Step2Props) {
 
     if (textAreaElement != null && parentType == ElementParentType.VECTOR) {
       if (textAreaElement.current) {
-      content = textAreaElement.current.value;
+        content = textAreaElement.current.value;
         if (content === "") return;
         let lines =  content.split('\n');
         console.log(lines);
@@ -260,6 +261,7 @@ export function TakeInput(props: Step2Props) {
           <option value="Figures">Figures</option>
           <option value="Citations">Citations</option>
           <option value="Differences">Differences</option>
+          <option value="Code">Code</option>
         </select>
         {
           <GetCurrentInput

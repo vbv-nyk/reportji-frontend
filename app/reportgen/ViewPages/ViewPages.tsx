@@ -43,6 +43,7 @@ export default function ViewPages(props: ReportGenCommonProps) {
     const pagesData = PageToJi(pages);
     inputJi = inputJi.concat(`pages = {\n${pagesData}\n}\n`);
     inputJi = inputJi.concat("output = {\n}");
+    console.log(inputJi);
     const data = await getReport({variables: {inputJi}});
     const {CreateTexFile} = data.data;
     setOutputData(CreateTexFile.tex);

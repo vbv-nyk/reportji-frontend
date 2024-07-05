@@ -23,6 +23,7 @@ export function getParentType(input: string) : ElementParentType{
        case "Paragraphs":
        case "Items":
        case "Citations":
+       case "Code":
             return ElementParentType.VECTOR
        case "Tables":
             return ElementParentType.TABLES
@@ -55,6 +56,8 @@ export function getElementType(input: string) : ElementType {
             return ElementType.CITATIONS;
        case "Table":
             return ElementType.DIFFERENCES;
+       case "Code":
+            return ElementType.CODE;
     }
     
     return ElementType.INVALID;
@@ -74,6 +77,7 @@ export default function getElementName(type: ElementType) : string {
           case ElementType.PARAGRAPHS: return "Paragraphs";
           case ElementType.SUBTITLE: return "Subtitle";
           case ElementType.TITLE: return "Title";
+          case ElementType.CODE: return "Code";
           default: return ""
     }
 }
