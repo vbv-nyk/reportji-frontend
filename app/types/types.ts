@@ -16,6 +16,7 @@ export enum ElementParentType {
     SCALAR,
     VECTOR,
     TABLES,
+    FIGURES,
     INVALID
 }
 

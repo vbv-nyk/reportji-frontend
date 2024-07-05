@@ -32,15 +32,13 @@ export function PageToJi(pages: Pages): string {
           console.log(content);
           const currentElement = `\t${name}: "${content}";`;
           outputPage.elements.push(currentElement);
-      } else {
-        if (Array.isArray(element.element.content)) {
+      } else if (element.type == ElementParentType.VECTOR && Array.isArray(element.element.content) ) {
           const paragraphs = element.element.content.map((line, index) => {
             let content = replaceBracesWithContainers(line);
             console.log(content);
             return `\t\t"${content}",`;
           });
           outputPage.elements.push(`${name}: [\n${paragraphs.join("\n")}\n];`);
-        }
       }
     });
 

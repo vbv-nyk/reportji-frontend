@@ -197,6 +197,39 @@ export function TakeInput(props: Step2Props) {
         textAreaElement.current.value = "";
       }
     }
+
+    if (textAreaElement != null && parentType == ElementParentType.FIGURES) {
+      if (textAreaElement.current) {
+      content = textAreaElement.current.value;
+        if (content === "") return;
+        let lines =  content.split('\n');
+        console.log(lines);
+        if (editIndex === -1) {
+          setPage({
+            name: page.name,
+            elements: [
+              ...page.elements,
+              { type: parentType, element: { content: lines, type: elementType } },
+            ],
+          });
+        } else {
+          const newElements = page.elements.map((element, index) => {
+            if (index === editIndex) {
+              element.element.content = content.split("\n");
+              element.element.type = elementType;
+              element.type = parentType;
+              return element;
+            } else {
+              return element;
+            }
+          });
+          setPage({ name: page.name, elements: newElements });
+          setEditIndex(-1);
+          console.log(newElements);
+        }
+        textAreaElement.current.value = "";
+      }
+    }
     
   };
 

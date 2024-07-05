@@ -22,11 +22,12 @@ export function getParentType(input: string) : ElementParentType{
             return ElementParentType.SCALAR
        case "Paragraphs":
        case "Items":
-       case "Figures":
        case "Citations":
             return ElementParentType.VECTOR
        case "Tables":
             return ElementParentType.TABLES
+       case "Figures":
+            return ElementParentType.FIGURES
     }
     
     return ElementParentType.INVALID;
