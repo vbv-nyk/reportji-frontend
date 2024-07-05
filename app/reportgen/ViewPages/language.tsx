@@ -42,7 +42,8 @@ export function PageToJi(pages: Pages): string {
           console.log(content);
           const currentElement = `${returnBlankSpace(1)}${name}: "${content}";`;
           outputPage.elements.push(currentElement);
-      } else if (element.type == ElementParentType.VECTOR && Array.isArray(element.element.content) ) {
+      } else {
+        if (Array.isArray(element.element.content)) {
           const paragraphs = element.element.content.map((line, index) => {
             let content = replaceBracesWithContainers(line);
             console.log(content);
