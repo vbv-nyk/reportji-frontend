@@ -7,37 +7,41 @@ import { BACKEND_URL } from "../constants";
 
 export default function Landing() {
   return (
-    <div className="grid grid-cols-[2fr_3fr] h-screen bg-[#01162B] ">
-      <div className="pl-20 grid grid-rows-[160px_auto]">
+    <div className="bg-[#01162B] h-screen">
+      <div className="flex items-center justify-around">
         <Logo2/>
-        <div className="h-full flex-col pt-20 gap-8 pl-16  flex text-white font-extrabold">
-          <div className="flex flex-col text-3xl ">
-            <div>Report Making</div>
-            <div>
-              Made <span className="text-[#FFB800]">Easier.</span>
+        <Navbar />
+      </div>
+      <div className="">
+        <div className="flex flex-col gap-8 justify-center items-center">
+            <img
+              className=""
+              src="images/laptop-report.webp"
+            ></img>
+          <div className="">
+            <div className="text-white font-extrabold text-3xl">Report Making</div>
+            <div className="text-white font-extrabold text-3xl">
+              Made <span className="font-extrabold text-yellow-400 text-3xl">Easier.</span>
             </div>
           </div>
           <Link href={"/choice"}>
             <ButtonWhite1 />
           </Link>
         </div>
-      </div>
-      <div className="h-full grid grid-rows-[100px_auto]">
-        <div className="w-full place-self-center self-center max-w-[500px] ">
-          <Navbar />
+        <div className="">
         </div>
-        <div className="h-full pr-20">
-          <div className="h-full grid grid-rows-[25%_25%_25%_25%] justify-items-start items-center  grid-cols-3">
+        <div className="hidden">
+          <div className="">
             <img
-              className="h-1/2 col-start-1 col-end-2 row-start-1 justify-self-start row-end-3 z-10"
+              className=""
               src="images/guy_left.png"
             ></img>
             <img
-              className="h-1/2 col-start-3 col-end-4 row-start-1 row-end-3 z-10 justify-self-start"
+              className=""
               src="images/guy_right.png"
             ></img>
             <img
-              className="h-full w-max col-start-1 col-end-4 row-start-1 row-end-5"
+              className=""
               src="images/big_guy.jpeg"
             ></img>
           </div>

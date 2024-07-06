@@ -6,11 +6,10 @@ export default function Navbar() {
     window.open(`${BACKEND_URL}/auth/google`, "_self");
   }
   return (
-    <div className="flex justify-between items-center px-10 font-extrabold text-white uppercase">
-      <div>Home</div>
-        <div className="" onClick={login}>Sign In</div>
-      <div>Docs</div>
-      <div>Contact Us</div>
+    <div className="flex flex-wrap justify-center gap-2 items-center md:px-10 font-extrabold text-white uppercase">
+        <button className="uppercase" onClick={login}>Sign In</button>
+      <button className="uppercase">Docs</button>
+      <button className="uppercase">Contact Us</button>
     </div>
   );
 }
