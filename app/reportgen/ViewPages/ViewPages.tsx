@@ -60,64 +60,68 @@ export default function ViewPages(props: ReportGenCommonProps) {
     setCurrentView(CurrentView.REPORT_VIEW);
   }
 
-  let PageList;
-  if (pages.length == 0) {
-    PageList = () => (
-      <div className="flex flex-col gap-2">
-        <div className="text-white font-bold text-3xl">Your Pages</div>
-        <div className="text-white font-light">
-          You do not have any chapters yet, click below to start a new chapter.
+  function PageList(provided: DroppableProvided) {
+    if (pages.length == 0) {
+      return (
+        <div className="flex flex-col gap-2">
+          <div className="text-white font-bold text-3xl">Your Pages</div>
+          <div className="text-white font-light">
+            You do not have any chapters yet, click below to start a new
+            chapter.
+          </div>
         </div>
-      </div>
-    );
-  } else {
-    PageList = (provided: DroppableProvided) => (
-      <div ref={provided.innerRef} {...provided.droppableProps}>
-        {pages.map((page, index) => {
-          return (
-            <Draggable draggableId={`${index}`} index={index}>
-              {(childProvided) => (
-                <div
-                  {...childProvided.draggableProps}
-                  {...childProvided.dragHandleProps}
-                  ref={childProvided.innerRef}
-                  key={index}
-                  className="flex border-black border-2 w-full bg-gray-300 rounded-lg px-4 py-2 justify-between items-center"
-                >
-                  <div className="text-md whitespace-nowrap">{page.name}</div>
-                  <div className="flex gap-4 ">
-                    <ButtonYellow2
-                      content={"Edit"}
-                      onClick={() => {
-                        editChapter(index);
-                      }}
-                    />
-                    <ButtonYellow2
-                      content={"Delete"}
-                      onClick={() => {
-                        deleteChapter(index);
-                      }}
-                    />
+      );
+    } else {
+      return (
+        <div ref={provided.innerRef} {...provided.droppableProps}>
+          {pages.map((page, index) => {
+            return (
+              <Draggable key={index} draggableId={`${index}`} index={index}>
+                {(childProvided) => (
+                  <div
+                    {...childProvided.draggableProps}
+                    {...childProvided.dragHandleProps}
+                    ref={childProvided.innerRef}
+                    key={index}
+                    className="flex border-black border-2 w-full bg-gray-300 rounded-lg px-4 py-2 justify-between items-center"
+                  >
+                    <div className="text-md whitespace-nowrap">{page.name}</div>
+                    <div className="flex gap-4 ">
+                      <ButtonYellow2
+                        content={"Edit"}
+                        onClick={() => {
+                          editChapter(index);
+                        }}
+                      />
+                      <ButtonYellow2
+                        content={"Delete"}
+                        onClick={() => {
+                          deleteChapter(index);
+                        }}
+                      />
+                    </div>
+                    {provided.placeholder}
                   </div>
-                  {provided.placeholder}
-                </div>
-              )}
-            </Draggable>
-          );
-        })}
-      </div>
-    );
+                )}
+              </Draggable>
+            );
+          })}
+        </div>
+      );
+    }
   }
   function onDragEnd(result: DropResult) {
-    const pagesClone = pages.map(page=>page);
-    const {destination, source, draggableId} = result;
-    
-    if(!destination) return;
-    if(destination.index == source.index) return;
-    
-    [pagesClone[source.index], pagesClone[destination.index]] = [pagesClone[destination.index], pagesClone[source.index]];
-    
-    
+    const pagesClone = pages.map((page) => page);
+    const { destination, source, draggableId } = result;
+
+    if (!destination) return;
+    if (destination.index == source.index) return;
+
+    [pagesClone[source.index], pagesClone[destination.index]] = [
+      pagesClone[destination.index],
+      pagesClone[source.index],
+    ];
+
     setPages(pagesClone);
     localStorage.setItem("pages", JSON.stringify(pagesClone));
   }

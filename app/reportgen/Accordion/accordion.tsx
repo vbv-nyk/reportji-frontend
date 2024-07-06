@@ -20,7 +20,7 @@ export default function Accordion(props: Step2Props) {
     page.elements.map((element, index) => {
       const elementName = getElementName(element.element.type);
       return (
-        <Draggable draggableId={`${index}`} index={index}>
+        <Draggable key={index} draggableId={`${index}`} index={index}>
           {(childProvided) => (
             <div
               {...childProvided.draggableProps}
