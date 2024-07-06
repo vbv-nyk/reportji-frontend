@@ -26,20 +26,40 @@ export function Common() {
 }
 
 export function Progress({ pageNumber }: { pageNumber: Number }) {
-  let color = pageNumber == 1 ? "#6b7280" : "#ffff";
+  let firstCirle,bridge,  secondCircle ; 
+  if(pageNumber == CurrentView.ENTER_CHAPTER_VIEW ) {
+    firstCirle =  "#6b7280" ;
+    secondCircle =  "#6b7280" ;
+    bridge =  "#6b7280" ;
+  } else if(pageNumber == CurrentView.REPORT_VIEW) {
+    firstCirle = "#ffffff";
+    secondCircle = "#ffffff";
+    bridge = "#ffffff";
+  } else if(pageNumber == CurrentView.ENTER_CONTENT_VIEW) {
+    firstCirle = "#ffffff";
+    secondCircle = "#6b7280";
+    bridge = "#ffffff";
+  } else if(pageNumber == CurrentView.SHOW_PAGES_VIEW) {
+    firstCirle = "#ffffff";
+    secondCircle = "#6b7280";
+    bridge = "#6b7280";
+  }
+
   return (
     <>
       <button
-        style={{ color, borderColor: color }}
+        style={{ color: firstCirle, borderColor: firstCirle }}
         className="border-gray-500 text-gray-500  font-bold border-2 px-[10px] text-sm py-1 rounded-[100%]"
       >
         1
       </button>
       <div
-        style={{ color, borderColor: color }}
+        style={{ color: bridge, borderColor: bridge }}
         className="w-20 border border-gray-500"
       ></div>
-      <button className="text-gray-500 font-bold border-2 border-gray-500 px-[10px] text-sm py-1 rounded-[100%]">
+      <button
+        style={{ color: secondCircle, borderColor: secondCircle }}
+       className="text-gray-500 font-bold border-2 border-gray-500 px-[10px] text-sm py-1 rounded-[100%]">
         2
       </button>
     </>

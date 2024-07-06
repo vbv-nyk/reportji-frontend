@@ -65,6 +65,15 @@ export default function Page() {
               <Progress pageNumber={currentView} />
             </div>
           </>
+      case CurrentView.REPORT_VIEW:
+          return <>
+              <div className="">
+                <ViewPagesHeader {...props} />
+              </div>
+            <div className="flex items-center justify-center"> 
+              <Progress pageNumber={currentView} />
+            </div>
+          </>
       default: 
         return <></>
     }
