@@ -59,7 +59,7 @@ export default function Step3(props: ReportGenCommonProps) {
         />
         {pdfData.length > 0 && (
         <object data={`data:application/pdf;base64,${pdfData}`} type="application/pdf" width="100%" height="100%">
-          <p>Alternative text - include a link <a href="http://africau.edu/images/default/sample.pdf">to the PDF!</a></p>
+          <p>Alternative text - include a link <a href="http://afrticau.edu/images/default/sample.pdf">to the PDF!</a></p>
     </object>
         )}
       </div>

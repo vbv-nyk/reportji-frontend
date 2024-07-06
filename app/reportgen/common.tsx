@@ -66,7 +66,7 @@ export function GetCurrentInput(props: GetCurrentInputProps) {
             ref={inputElement}
             className="w-full py-4 pl-4 font-semibold placeholder:text-gray-500 rounded-md"
             placeholder="Add Your Text Here......"
-            defaultValue={content}
+            defaultValue={Array.isArray(content) ? content.join("\n") : content}
           />
         </div>
       );
@@ -79,7 +79,7 @@ export function GetCurrentInput(props: GetCurrentInputProps) {
         <div className="w-full flex-grow h-full">
           <textarea
             ref={textAreaElement}
-            defaultValue={content}
+            defaultValue={Array.isArray(content) ? content.join("\n") : content}
             className="w-full h-full font-semibold rounded-lg p-4 resize-none"
             placeholder="Enter your data, every new paragraph/item starts at a new line."
           />

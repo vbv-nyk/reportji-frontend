@@ -32,7 +32,7 @@ export default function Accordion(props: Step2Props) {
           <div>
             <TakeInput
               {...props}
-              content={element.element.content.toString()}
+              content={Array.isArray(element.element.content) ? element.element.content.join('\n') : element.element.content}
               defaultType={elementName}
             />
           </div>

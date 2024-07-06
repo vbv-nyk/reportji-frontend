@@ -1,4 +1,4 @@
-import getElementName from "@/app/types/elements";;
+import getElementName from "@/app/types/elements";
 import { ElementParentType, ElementType, Pages } from "@/app/types/types";
 
 type OutputMarkup = {
@@ -62,17 +62,31 @@ export function PageToJi(pages: Pages): string {
         Array.isArray(element.element.content)
       ) {
         if (element.element.type == ElementType.CODE) {
-          let content : string | string [] = element.element.content.map(line => line.replaceAll("\\n", ""))
-          content = content.join("\n");
+          let content: string | string[] = element.element.content.map((line) => {
+            line = line.replaceAll("\\", "\\\\");
+            line =  line.replaceAll("\\n", "")
+            return line;
+          }
+          );
           console.log(content);
-          content = content.replaceAll("\\", "\\\\");
+          content = content.join("\\hfill \\break ");
           content = content.replaceAll("%", "\\%");
           content = content.replaceAll("$", "\\$");
+          content = content.replaceAll("#", "\\#");
+          content = content.replaceAll("&", "\\&");
+          content = content.replaceAll("_", "\\_");
+          content = content.replaceAll("{", (match) => {
+            return ` \\curly{`;
+          });
           content = content.replaceAll(
-            /\".*\"/g,
-            (match) => `| \\quotes{${match.substring(1, match.length - 1)}} |`
+            /\"(.*?)\"/g,
+            (match) => ` \\quotes{${match.substring(1, match.length - 1)}} `
           );
-          const verbatim = `"\\begin{lstlisting}\n${content}\n\\end{lstlisting}"`;
+          content = content.replaceAll("[]", " \\square{} ");
+          content = content.replaceAll(/\[(.*?)\]/g, (match) => {
+            return ` \\square{${match.substring(1, match.length - 1)}} `;
+          });
+          const verbatim = `${returnBlankSpace(2)}"\\begin{lstlisting}\n|${content}|\n${returnBlankSpace(2)}\\end{lstlisting}"`;
           outputPage.elements.push(
             `${returnBlankSpace(1)}paragraphs: [\n${verbatim}\n];`
           );
