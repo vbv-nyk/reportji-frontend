@@ -35,10 +35,8 @@ export default function Landing() {
             </Link>
           </div>
         </div>
-        <div className="shrink-0 hidden lg:h-full md:grid grid-rows-[25%_25%_25%_25%] grid-cols-3">
-            <img className="row-start-1 row-end-3 col-start-1 col-end-2 z-10 h-full self-center justify-self-center max-h-[150px] aspect-[20/10]" src="images/guy_left.png"></img>
-            <img className="row-start-1 row-end-3 col-start-3 col-end-4 z-10 h-full max-h-[300px] self-center justify-self-start" src="images/guy_right.png"></img>
-            <img className="row-start-1 row-end-5 col-start-1 h-full justify-self-center max-w-3/4 col-end-4 self-center "src="images/big_guy.jpeg"></img>
+        <div className="hidden md:inline">
+          <img src="images/big_man.png"></img>          
         </div>
       </div>
     </div>

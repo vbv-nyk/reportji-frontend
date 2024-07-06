@@ -32,6 +32,7 @@ export default function Page() {
       setPages(JSON.parse(pagesData));
     }
   }, []);
+  
 
   const props = {
     currentView,

@@ -44,6 +44,7 @@ export default function ViewPages(props: ReportGenCommonProps) {
       return index != i;
     });
     setPages(pagesClone);
+    localStorage.setItem("pages", JSON.stringify(pagesClone));
   }
 
   async function generateReport() {
@@ -62,7 +63,7 @@ export default function ViewPages(props: ReportGenCommonProps) {
   let PageList;
   if (pages.length == 0) {
     PageList = () => (
-      <div>
+      <div className="flex flex-col gap-2">
         <div className="text-white font-bold text-3xl">Your Pages</div>
         <div className="text-white font-light">
           You do not have any chapters yet, click below to start a new chapter.
@@ -118,6 +119,7 @@ export default function ViewPages(props: ReportGenCommonProps) {
     
     
     setPages(pagesClone);
+    localStorage.setItem("pages", JSON.stringify(pagesClone));
   }
   return (
     <div className="w-full flex flex-col gap-5">

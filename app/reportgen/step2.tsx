@@ -32,6 +32,7 @@ export default function Step2(props: ReportGenCommonProps) {
       const pagesClone = pages.map(page => page);
       pagesClone[currentPage] = page;
       setPages(pagesClone);
+      localStorage.setItem("pages", JSON.stringify(pagesClone));
       setCurrentView(CurrentView.SHOW_PAGES_VIEW);
   }
 
