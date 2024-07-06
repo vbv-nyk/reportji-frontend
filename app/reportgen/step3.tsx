@@ -23,7 +23,7 @@ export default function Step3(props: ReportGenCommonProps) {
   const { setOutputData } = props;
   const [getPDF, { loading, error }] = useMutation(RETRIEVE_PDF);
   const [pdfData, setPdfData] = useState<string>("");
-  const { outputData,setCurrentView } = props;
+  const { outputData, setCurrentView } = props;
   async function retrievePDF() {
     const data = await getPDF({ variables: { texFile: outputData } });
     const base64PDF = data.data.CreatePDF.pdf;
@@ -33,7 +33,7 @@ export default function Step3(props: ReportGenCommonProps) {
     setOutputData(content);
   }
   function editPages() {
-    setCurrentView(CurrentView.SHOW_PAGES_VIEW) 
+    setCurrentView(CurrentView.SHOW_PAGES_VIEW);
   }
 
   useEffect(() => {
@@ -44,30 +44,38 @@ export default function Step3(props: ReportGenCommonProps) {
     setNumPages(numPages);
   }
   return (
-    <div className="h-screen flex flex-col gap-2">
-      <div className="h-full grid grid-cols-1">
-        {pdfData.length > 0 && (
-        <object data={`data:application/pdf;base64,${pdfData}`} type="application/pdf" width="100%" height="100%">
-          <p>Alternative text - include a link <a href="http://afrticau.edu/images/default/sample.pdf">to the PDF!</a></p>
-    </object>
-        )}
-        <AceEditor
-          mode={"latex"}
-          height="100%"
-          width="100%"
-          setOptions={{
-            enableBasicAutocompletion: true,
-            enableLiveAutocompletion: true,
-            enableSnippets: true,
-          }}
-          value={outputData}
-          onChange={updateContent}
-        />
-      </div>
-
-      <div className="flex gap-2 ">
-        <ButtonYellow2 content={"Go Back"} onClick={editPages} />
-        <ButtonYellow2 content={"Run Code"} onClick={retrievePDF} />
+    <div className="h-full w-screen flex flex-col gap-2">
+      <div className="h-full grid grid-cols-1 gap-2">
+        <div className="flex flex-col gap-2 h-full">
+            <div className="h-screen">
+              <AceEditor
+                mode={"latex"}
+                height="100%"
+                width="100%"
+                setOptions={{
+                  enableBasicAutocompletion: true,
+                  enableLiveAutocompletion: true,
+                  enableSnippets: true,
+                }}
+                value={outputData}
+                onChange={updateContent}
+              />
+            </div>
+            <div className="flex gap-2 ">
+              <ButtonYellow2 content={"Go Back"} onClick={editPages} />
+              <ButtonYellow2 content={"Run Code"} onClick={retrievePDF} />
+            </div>
+        </div>
+        <div className="h-screen">
+          {pdfData.length > 0 && (
+            <object
+              data={`data:application/pdf;base64,${pdfData}`}
+              // type="application/pdf"
+              width="100%"
+              height="100%"
+            ></object>
+          )}
+        </div>
       </div>
     </div>
   );

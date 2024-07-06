@@ -79,7 +79,7 @@ export default function Page() {
   }, [currentView])
   return (
     <ApolloProvider client={client}>
-      <div className="pt-6 bg-[#01162B] flex flex-col gap-4 h-screen">
+      <div className="pt-6 bg-[#01162B] flex flex-col gap-4 min-h-screen h-full">
         <div className="flex justify-around">
               <Logo2 />
               <Navbar />
