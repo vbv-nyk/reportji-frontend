@@ -25,9 +25,9 @@ export default function Step1(props: ReportGenCommonProps) {
   }
 
   return (
-    <div className="h-full w-full flex flex-col justify-start items-start gap-4 ">
-        <img className="" src="./images/chapter_name.png" />
-        <div className="flex flex-col gap-4 items-start">
+    <div className="h-full w-full flex flex-col justify-center items-start gap-4 ">
+        <img className="mx-auto" src="./images/chapter_name.png" />
+        <div className="mx-auto flex flex-col gap-4 items-start">
           <div className="flex flex-col gap-2">
             <div className="text-white text-xl font-bold">
               Enter The Chapter Name

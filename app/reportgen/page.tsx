@@ -58,10 +58,10 @@ export default function Page() {
       case CurrentView.ENTER_CHAPTER_VIEW:
       case CurrentView.ENTER_CONTENT_VIEW:
           return <>
-                <div className="self-end place-content-end row-start-2 row-end-3 col-start-2 col-end-4">
+                <div className="">
                   <Common />
                 </div>
-            <div className="flex items-center justify-center row-start-3 row-end-4 col-start-2 col-end-4">
+            <div className="flex items-center justify-center ">
               <Progress pageNumber={currentView} />
             </div>
           </>
@@ -79,7 +79,7 @@ export default function Page() {
   }, [currentView])
   return (
     <ApolloProvider client={client}>
-      <div className="pt-6 bg-[#01162B] flex flex-col gap-4 min-h-screen h-full">
+      <div className="py-6 bg-[#01162B] flex flex-col gap-4 min-h-screen h-full">
         <div className="flex justify-around">
               <Logo2 />
               <Navbar />
