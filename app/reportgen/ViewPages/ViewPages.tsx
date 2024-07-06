@@ -65,17 +65,17 @@ export default function ViewPages(props: ReportGenCommonProps) {
       <>
         {pages.map((page, index) => {
           return (
-            <div key={index} className="flex gap-8 w-full bg-gray-300 rounded-lg px-8 py-4 justify-between items-center">
-              <div className="text-xl">{page.name}</div>
-              <div className="flex gap-4">
+            <div key={index} className="flex border-black border-2 w-full bg-gray-300 rounded-lg px-4 py-2 justify-between items-center">
+              <div className="text-md whitespace-nowrap">{page.name}</div>
+              <div className="flex gap-4 ">
                 <ButtonYellow2
-                  content={"Edit Chapter"}
+                  content={"Edit"}
                   onClick={() => {
                     editChapter(index);
                   }}
                 />
                 <ButtonYellow2
-                  content={"Delete Chapter"}
+                  content={"Delete"}
                   onClick={() => {
                     deleteChapter(index);
                   }}

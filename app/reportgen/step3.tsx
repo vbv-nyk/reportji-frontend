@@ -45,10 +45,16 @@ export default function Step3(props: ReportGenCommonProps) {
   }
   return (
     <div className="h-screen flex flex-col gap-2">
-      <div className="h-full grid grid-cols-2">
+      <div className="h-full grid grid-cols-1">
+        {pdfData.length > 0 && (
+        <object data={`data:application/pdf;base64,${pdfData}`} type="application/pdf" width="100%" height="100%">
+          <p>Alternative text - include a link <a href="http://afrticau.edu/images/default/sample.pdf">to the PDF!</a></p>
+    </object>
+        )}
         <AceEditor
           mode={"latex"}
           height="100%"
+          width="100%"
           setOptions={{
             enableBasicAutocompletion: true,
             enableLiveAutocompletion: true,
@@ -57,11 +63,6 @@ export default function Step3(props: ReportGenCommonProps) {
           value={outputData}
           onChange={updateContent}
         />
-        {pdfData.length > 0 && (
-        <object data={`data:application/pdf;base64,${pdfData}`} type="application/pdf" width="100%" height="100%">
-          <p>Alternative text - include a link <a href="http://afrticau.edu/images/default/sample.pdf">to the PDF!</a></p>
-    </object>
-        )}
       </div>
 
       <div className="flex gap-2 ">
