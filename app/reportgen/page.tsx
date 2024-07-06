@@ -48,10 +48,10 @@ export default function Page() {
     switch(currentView) {
       case CurrentView.SHOW_PAGES_VIEW: 
           return <>
-              <div className="self-end place-content-end row-start-2 row-end-3 col-start-2 col-end-4">
+              <div className="">
                 <ViewPagesHeader {...props} />
               </div>
-            <div className="flex items-center justify-center row-start-3 row-end-4 col-start-2 col-end-4">
+            <div className="flex items-center justify-center"> 
               <Progress pageNumber={currentView} />
             </div>
           </>
@@ -79,20 +79,15 @@ export default function Page() {
   }, [currentView])
   return (
     <ApolloProvider client={client}>
-      <div className="pt-6 bg-[#01162B] flex flex-col gap-4 min-h-screen h-max">
-        <div className=" grid grid-rows-[230px_0px] grid-cols-2">
-          <div className={`grid grid-cols-4 grid-rows-[100px_50px_${displayRow}px] row-start-1 row-end-3 col-start-1 col-end-3`}>
-            <div className="pl-10 row-start-1 row-end-3 col-start-1 col-end-2">
+      <div className="pt-6 bg-[#01162B] flex flex-col gap-4 h-screen">
+        <div className="flex justify-around">
               <Logo2 />
-            </div>
-            <div className="w-full justify-self-end col-start-2 col-end-5 max-w-[500px] ">
               <Navbar />
-            </div>
-            {HeaderSection()}
-          </div>
         </div>
-        <div className="h-full col-start-1 pb-5 col-end-3 w-10/12 mx-auto">
+        {HeaderSection()}
+        <div className="h-full w-10/12 flex mx-auto">
           {currentView == CurrentView.SHOW_PAGES_VIEW && (
+              
             <ViewPages {...props} />
           )}
           {currentView == CurrentView.ENTER_CHAPTER_VIEW && (

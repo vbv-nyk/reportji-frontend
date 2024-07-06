@@ -17,8 +17,8 @@ import { CurrentView } from "./types";
 
 export function Common() {
   return (
-    <div className="flex flex-col gap-8 items-center">
-      <p className="text-white font-bold">
+    <div className="w-full flex flex-col gap-8 items-center">
+      <p className="w-full  text-center text-white font-bold">
         Just A Few Steps Away From Getting Your Report Ready !
       </p>
     </div>

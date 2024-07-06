@@ -88,7 +88,7 @@ export default function ViewPages(props: ReportGenCommonProps) {
     );
   }
   return (
-    <div className="flex flex-col gap-5">
+    <div className="w-full flex flex-col gap-5">
       {PageList}
       <div className="flex gap-4">
         <ButtonYellow2 onClick={newChapter} content={"Add Page"} />
