@@ -13,18 +13,20 @@ export default function Accordion(props: Step2Props) {
     return (
       <>
         {editIndex !== index && (
-          <div className="flex gap-8 w-full bg-gray-300 rounded-lg px-8 py-4 justify-between">
-            <div className="w-full px-[30px] flex flex-shrink-[2] justify-center items-center align-middle text-center font-bold bg-white rounded-lg">
-              {elementName}
+          <div className="flex flex-wrap gap-2 w-full bg-gray-300 rounded-lg px-8 py-4 justify-between">
+            <div className="w-full flex justify-between">
+              <div className="py-2 px-[30px] flex justify-center items-center align-middle text-center font-bold bg-white rounded-lg">
+                {elementName}
+              </div>
+              <div className="flex gap-2">
+                <ButtonYellow2
+                  content={"Edit"}
+                  onClick={() => editContent(index)}
+                />
+              </div>
             </div>
             <div className="p-4 flex-grow-[1] align-middle overflow-hidden w-full text-ellipsis whitespace-nowrap bg-white rounded-lg">
               {element.element.content}
-            </div>
-            <div className="flex gap-2 ">
-              <ButtonYellow2
-                content={"Edit"}
-                onClick={() => editContent(index)}
-              />
             </div>
           </div>
         )}
@@ -32,7 +34,11 @@ export default function Accordion(props: Step2Props) {
           <div>
             <TakeInput
               {...props}
-              content={Array.isArray(element.element.content) ? element.element.content.join('\n') : element.element.content}
+              content={
+                Array.isArray(element.element.content)
+                  ? element.element.content.join("\n")
+                  : element.element.content
+              }
               defaultType={elementName}
             />
           </div>
