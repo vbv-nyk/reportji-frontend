@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { CurrentView } from "./types";
 
 const RETRIEVE_PDF = gql`
-  mutation CreatePDF($texFile: String) {
+  mutation CreatePDF($texFile: String!) {
     CreatePDF(texFile: $texFile) {
       pdf
     }

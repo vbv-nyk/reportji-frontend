@@ -7,6 +7,7 @@ import {
   ApolloProvider,
   gql,
 } from "@apollo/client";
+import Link from "next/link";
 export default function Navbar() {
   async function login() {
     window.open(`${BACKEND_URL}/auth/google`, "_self");
@@ -48,7 +49,9 @@ export default function Navbar() {
       {username && <button className="flex-grow uppercase hover:text-lg" >
         {username}
       </button>}
-      <button className="flex-grow uppercase hover:text-lg">Documents</button>
+      <Link href={"/documents"}>
+        <button className="flex-grow uppercase hover:text-lg">Documents</button>
+      </Link>
       <button className="flex-grow uppercase hover:text-lg">About Us</button>
       <button  onClick={()=>{window.open("https://github.com/vbv-nyk/reportji-markup", "_blank")}} className="hidden hover:underline hover:underline-offset-4 sm:inline flex-grow uppercase hover:text-lg">
         Github

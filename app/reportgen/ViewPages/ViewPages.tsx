@@ -15,10 +15,11 @@ import {
   Draggable,
   DropResult,
 } from "@hello-pangea/dnd";
+import { useRef } from "react";
 
 const CREATE_FILE = gql`
-  mutation getOutputTex($inputJi: String!) {
-    CreateTexFile(inputJi: $inputJi) {
+  mutation getOutputTex($inputJi: String!, $name: String!, $pagesData: String!) {
+    CreateTexFile(inputJi: $inputJi, name: $name, pagesData: $pagesData) {
       err
       errMsg
       tex
@@ -28,7 +29,9 @@ const CREATE_FILE = gql`
 export default function ViewPages(props: ReportGenCommonProps) {
   const { setCurrentView, setCurrentPage, pages, setPages, setOutputData } =
     props;
+
   const [getReport, { loading, error }] = useMutation(CREATE_FILE);
+  const doc_ref = useRef<HTMLInputElement>(null);
 
   function newChapter() {
     setCurrentPage(pages.length);
@@ -48,16 +51,21 @@ export default function ViewPages(props: ReportGenCommonProps) {
   }
 
   async function generateReport() {
+    if(!doc_ref.current || !doc_ref.current.value) return;
+    let doc_name = doc_ref.current.value;
     let inputJi = "stlyes = {\n}\n";
     console.log(pages);
     const pagesData = PageToJi(pages);
     inputJi = inputJi.concat(`pages = {\n${pagesData}\n}\n`);
     inputJi = inputJi.concat("output = {\n}");
-    console.log(inputJi);
-    const data = await getReport({ variables: { inputJi } });
+    try {
+      const data = await getReport({ variables: { inputJi, name: doc_name, pagesData: JSON.stringify(pages)} });
     const { CreateTexFile } = data.data;
     setOutputData(CreateTexFile.tex);
     setCurrentView(CurrentView.REPORT_VIEW);
+    } catch (e) {
+      console.log("Error: ", e);
+    }
   }
 
   function PageList(provided: DroppableProvided) {
@@ -134,13 +142,16 @@ export default function ViewPages(props: ReportGenCommonProps) {
           }}
         </Droppable>
       </DragDropContext>
-      <div className="flex gap-4">
+      <div className="flex flex-row items-start justify-between gap-4">
         <ButtonYellow2 onClick={newChapter} content={"Add Page"} />
         {pages.length != 0 && (
+          <div className="flex flex-col gap-2">
+          <input ref={doc_ref} placeholder="Enter the name of your report" className="p-2 rounded-xl text-center"/>
           <ButtonYellow2
             onClick={generateReport}
             content={"Give Me My Report!!!"}
           />
+          </div>
         )}
       </div>
     </div>
