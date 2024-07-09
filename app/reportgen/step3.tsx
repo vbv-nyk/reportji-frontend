@@ -11,8 +11,8 @@ import { useEffect, useState } from "react";
 import { CurrentView } from "./types";
 
 const RETRIEVE_PDF = gql`
-  mutation CreatePDF($texFile: String!) {
-    CreatePDF(texFile: $texFile) {
+  mutation CreatePDF($texFile: String!, $docID: Int!) {
+    CreatePDF(texFile: $texFile, docID: $docID) {
       pdf
     }
   }
@@ -23,9 +23,9 @@ export default function Step3(props: ReportGenCommonProps) {
   const { setOutputData } = props;
   const [getPDF, { loading, error }] = useMutation(RETRIEVE_PDF);
   const [pdfData, setPdfData] = useState<string>("");
-  const { outputData, setCurrentView } = props;
+  const { outputData, setCurrentView, documentID} = props;
   async function retrievePDF() {
-    const data = await getPDF({ variables: { texFile: outputData } });
+    const data = await getPDF({ variables: { texFile: outputData, docID: documentID} });
     const base64PDF = data.data.CreatePDF.pdf;
     setPdfData(base64PDF);
   }

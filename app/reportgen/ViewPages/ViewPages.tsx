@@ -23,11 +23,12 @@ const CREATE_FILE = gql`
       err
       errMsg
       tex
+      document_id
     }
   }
 `;
 export default function ViewPages(props: ReportGenCommonProps) {
-  const { setCurrentView, setCurrentPage, pages, setPages, setOutputData } =
+  const { setCurrentView, setCurrentPage, pages, setPages, setOutputData, documentID, setDocumentID} =
     props;
 
   const [getReport, { loading, error }] = useMutation(CREATE_FILE);
@@ -62,6 +63,7 @@ export default function ViewPages(props: ReportGenCommonProps) {
       const data = await getReport({ variables: { inputJi, name: doc_name, pagesData: JSON.stringify(pages)} });
     const { CreateTexFile } = data.data;
     setOutputData(CreateTexFile.tex);
+    setDocumentID(CreateTexFile.document_id)
     setCurrentView(CurrentView.REPORT_VIEW);
     } catch (e) {
       console.log("Error: ", e);

@@ -20,6 +20,7 @@ export default function Page() {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [outputData, setOutputData] = useState<string>("");
   const [displayRow, setDisplayRow] = useState(80);
+  const [documentID, setDocumentID] = useState<number | null>(null);
 
   const client = new ApolloClient({
     uri: `${BACKEND_URL}/graphql`,
@@ -42,7 +43,9 @@ export default function Page() {
     currentPage,
     setCurrentPage,
     outputData,
-    setOutputData
+    setOutputData,
+    documentID,
+    setDocumentID
   };
   
   const HeaderSection  = () => {
