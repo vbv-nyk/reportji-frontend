@@ -32,14 +32,14 @@ export default function Page() {
         setDocuments(data.data.RetrieveDocuments);;
         return data;
       } catch (e) { 
-        console.log("Error" + e);
+        console.error("Error" + e);
       }
     }
     getDocuments();
   },[]);
 
 
-  const DocumentsJSX = documents && documents.map(document => <Link href={`/documents/reportgen/${document.document_id}`}><button>{document.name}</button></Link>) || <div>You don't have any documents yet</div>
+  const DocumentsJSX = documents && documents.map((document,index) => <Link key={index} href={`/documents/reportgen/${document.document_id}`}><button>{document.name}</button></Link>) || <div>You don't have any documents yet</div>
 
   return (
     <div className="text-white h-screen w-screen text-lg  bg-[#00162B] font-extrabold">

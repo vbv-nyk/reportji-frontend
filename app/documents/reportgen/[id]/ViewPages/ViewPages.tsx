@@ -18,8 +18,8 @@ import {
 import { useRef } from "react";
 
 const CREATE_FILE = gql`
-  mutation getOutputTex($inputJi: String!, $name: String!, $pagesData: String!) {
-    CreateTexFile(inputJi: $inputJi, name: $name, pagesData: $pagesData) {
+  mutation getOutputTex($inputJi: String!, $name: String!, $pagesData: String!, $docID: Int) {
+    CreateTexFile(inputJi: $inputJi, name: $name, pagesData: $pagesData, docID: $docID) {
       err
       errMsg
       tex
@@ -60,7 +60,7 @@ export default function ViewPages(props: ReportGenCommonProps) {
     inputJi = inputJi.concat(`pages = {\n${pagesData}\n}\n`);
     inputJi = inputJi.concat("output = {\n}");
     try {
-      const data = await getReport({ variables: { inputJi, name: doc_name, pagesData: JSON.stringify(pages)} });
+      const data = await getReport({ variables: { inputJi, name: doc_name, pagesData: JSON.stringify(pages), docID: documentID} });
     const { CreateTexFile } = data.data;
     setOutputData(CreateTexFile.tex);
     setDocumentID(CreateTexFile.document_id)

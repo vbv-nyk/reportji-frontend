@@ -28,7 +28,7 @@ export default function Step1(props: ReportGenCommonProps) {
 
   return (
     <div className="h-full w-full flex flex-col md:flex-row justify-center items-start gap-4 md:items-center md:gap-8">
-        <img className="mx-auto md:mx-0" src="./images/chapter_name.png" />
+        <img className="mx-auto md:mx-0" src="/images/chapter_name.png" />
         <div className="mx-auto md:mx-0 flex flex-col gap-4 items-start">
           <div className="flex flex-col gap-2">
             <div className="text-white text-xl font-bold">

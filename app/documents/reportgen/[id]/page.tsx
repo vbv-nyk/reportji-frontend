@@ -10,7 +10,12 @@ import { Pages } from "../../../types/types";
 import ViewPages from "./ViewPages/ViewPages";
 import ViewPagesHeader from "./ViewPages/ViewPagesHeader";
 import { json } from "stream/consumers";
-import { ApolloClient, ApolloProvider, gql, InMemoryCache } from "@apollo/client";
+import {
+  ApolloClient,
+  ApolloProvider,
+  gql,
+  InMemoryCache,
+} from "@apollo/client";
 import Step3 from "./step3";
 import { BACKEND_PORT, BACKEND_URL } from "../../../constants";
 
@@ -28,9 +33,7 @@ export default function Page({ params }: { params: { id: number } }) {
     credentials: "include",
   });
   useEffect(() => {
-    if(params.id) {
     const retrieveDocument = async () => {
-
       try {
         const data = await client.query({
           query: gql`
@@ -42,18 +45,17 @@ export default function Page({ params }: { params: { id: number } }) {
                 url
               }
             }
-          `,variables: {document_id: +params.id}
-        }, );
-        console.log(data.data.DocumentByID.pages);
-        setDocumentID(data.data.DocumentByID.document_id);
-        setPages(JSON.parse(data.data.DocumentByID.pages));;
-        return data;
-      } catch (e) { 
+          `,
+          variables: { document_id: documentID ? documentID : +params.id},
+        });
+        setPages(JSON.parse(data.data.DocumentByID.pages));
+      } catch (e) {
+        console.log(documentID, params.id);
         console.log("Error" + e);
       }
-    }
-    retrieveDocument();
-    
+    };
+    if (params.id != 0) {
+      retrieveDocument();
     } else {
       const pagesData = localStorage.getItem("pages");
       if (pagesData !== null) {
@@ -61,7 +63,6 @@ export default function Page({ params }: { params: { id: number } }) {
       }
     }
   }, []);
-  
 
   const props = {
     currentView,
@@ -73,62 +74,67 @@ export default function Page({ params }: { params: { id: number } }) {
     outputData,
     setOutputData,
     documentID,
-    setDocumentID
+    setDocumentID,
   };
-  
-  const HeaderSection  = () => {
-    switch(currentView) {
-      case CurrentView.SHOW_PAGES_VIEW: 
-          return <>
-              <div className="">
-                <ViewPagesHeader {...props} />
-              </div>
-            <div className="flex items-center justify-center"> 
+
+  const HeaderSection = () => {
+    switch (currentView) {
+      case CurrentView.SHOW_PAGES_VIEW:
+        return (
+          <>
+            <div className="">
+              <ViewPagesHeader {...props} />
+            </div>
+            <div className="flex items-center justify-center">
               <Progress pageNumber={currentView} />
             </div>
           </>
+        );
       case CurrentView.ENTER_CHAPTER_VIEW:
       case CurrentView.ENTER_CONTENT_VIEW:
-          return <>
-                <div className="">
-                  <Common />
-                </div>
+        return (
+          <>
+            <div className="">
+              <Common />
+            </div>
             <div className="flex items-center justify-center ">
               <Progress pageNumber={currentView} />
             </div>
           </>
+        );
       case CurrentView.REPORT_VIEW:
-          return <>
-              <div className="">
-                <ViewPagesHeader {...props} />
-              </div>
-            <div className="flex items-center justify-center"> 
+        return (
+          <>
+            <div className="">
+              <ViewPagesHeader {...props} />
+            </div>
+            <div className="flex items-center justify-center">
               <Progress pageNumber={currentView} />
             </div>
           </>
-      default: 
-        return <></>
+        );
+      default:
+        return <></>;
     }
-  }
-  
+  };
+
   useEffect(() => {
-    if(currentView == CurrentView.REPORT_VIEW){
-        setDisplayRow(0);
+    if (currentView == CurrentView.REPORT_VIEW) {
+      setDisplayRow(0);
     } else {
       setDisplayRow(80);
     }
-  }, [currentView])
+  }, [currentView]);
   return (
     <ApolloProvider client={client}>
       <div className="py-6 bg-[#01162B] flex flex-col gap-4 min-h-screen h-full">
         <div className="flex justify-around">
-              <Logo2 />
-              <Navbar />
+          <Logo2 />
+          <Navbar />
         </div>
         {HeaderSection()}
         <div className="h-full w-10/12 flex mx-auto">
           {currentView == CurrentView.SHOW_PAGES_VIEW && (
-              
             <ViewPages {...props} />
           )}
           {currentView == CurrentView.ENTER_CHAPTER_VIEW && (
@@ -137,9 +143,7 @@ export default function Page({ params }: { params: { id: number } }) {
           {currentView == CurrentView.ENTER_CONTENT_VIEW && (
             <Step2 {...props} />
           )}
-          {currentView == CurrentView.REPORT_VIEW && (
-            <Step3 {...props}/>
-          )}
+          {currentView == CurrentView.REPORT_VIEW && <Step3 {...props} />}
         </div>
       </div>
     </ApolloProvider>
