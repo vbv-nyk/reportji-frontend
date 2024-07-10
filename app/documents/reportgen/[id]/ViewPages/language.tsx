@@ -69,7 +69,7 @@ export function PageToJi(pages: Pages): string {
           }
           );
           console.log(content);
-          content = content.join("\\hfill \\break ");
+          content = content.join("\\\\");
           content = content.replaceAll("%", "\\%");
           content = content.replaceAll("$", "\\$");
           content = content.replaceAll("#", "\\#");

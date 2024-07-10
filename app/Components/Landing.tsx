@@ -36,7 +36,7 @@ export default function Landing() {
           </div>
         </div>
         <div className="hidden md:inline">
-          <img src="images/big_man.png"></img>          
+          <img src="/images/big_man.png"></img>          
         </div>
       </div>
     </div>
