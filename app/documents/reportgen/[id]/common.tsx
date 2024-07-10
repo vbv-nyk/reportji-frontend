@@ -10,9 +10,9 @@ import {
 import getElementName, {
   getElementType,
   getParentType,
-} from "../types/elements";
-import { ElementParentType, ElementType, Page, Pages } from "../types/types";
-import ButtonYellow2 from "../Components/Buttons/ButtonYellow2";
+} from "../../../types/elements";
+import { ElementParentType, ElementType, Page, Pages } from "../../../types/types";
+import ButtonYellow2 from "../../../Components/Buttons/ButtonYellow2";
 import { CurrentView } from "./types";
 
 export function Common() {

@@ -26,7 +26,7 @@ export default function Page() {
                   T<span className="underline underline-offset-8">ry no</span>w!
                 </div>
               </div>
-              <Link href={"/reportgen"}>
+              <Link href={"/documents/reportgen/0"}>
                 <ButtonBlue1 />
               </Link>
             </div>

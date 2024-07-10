@@ -1,20 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
-import Logo2 from "../Components/Images/Logo2";
-import Navbar from "../Components/Navbar";
+import Logo2 from "../../../Components/Images/Logo2";
+import Navbar from "../../../Components/Navbar";
 import { Common, Progress } from "./common";
 import Step1 from "./step1";
 import Step2 from "./step2";
 import { CurrentView } from "./types";
-import { Pages } from "../types/types";
+import { Pages } from "../../../types/types";
 import ViewPages from "./ViewPages/ViewPages";
 import ViewPagesHeader from "./ViewPages/ViewPagesHeader";
 import { json } from "stream/consumers";
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { ApolloClient, ApolloProvider, gql, InMemoryCache } from "@apollo/client";
 import Step3 from "./step3";
-import { BACKEND_PORT, BACKEND_URL } from "../constants";
+import { BACKEND_PORT, BACKEND_URL } from "../../../constants";
 
-export default function Page() {
+export default function Page({ params }: { params: { id: number } }) {
   const [currentView, setCurrentView] = useState(CurrentView.SHOW_PAGES_VIEW);
   const [pages, setPages] = useState<Pages>([]);
   const [currentPage, setCurrentPage] = useState<number>(0);
@@ -28,9 +28,36 @@ export default function Page() {
     credentials: "include",
   });
   useEffect(() => {
-    const pagesData = localStorage.getItem("pages");
-    if (pagesData !== null) {
-      setPages(JSON.parse(pagesData));
+    if(params.id) {
+    const retrieveDocument = async () => {
+
+      try {
+        const data = await client.query({
+          query: gql`
+            query DocumentByID($document_id: Int!) {
+              DocumentByID(document_id: $document_id) {
+                pages
+                document_id
+                name
+                url
+              }
+            }
+          `,variables: {document_id: +params.id}
+        }, );
+        console.log(data.data.DocumentByID.pages);
+        setPages(JSON.parse(data.data.DocumentByID.pages));;
+        return data;
+      } catch (e) { 
+        console.log("Error" + e);
+      }
+    }
+    retrieveDocument();
+    
+    } else {
+      const pagesData = localStorage.getItem("pages");
+      if (pagesData !== null) {
+        setPages(JSON.parse(pagesData));
+      }
     }
   }, []);
   

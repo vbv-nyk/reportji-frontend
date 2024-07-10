@@ -6,7 +6,7 @@ import "ace-builds/src-noconflict/mode-latex";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/ext-language_tools";
 import { gql, useMutation } from "@apollo/client";
-import ButtonYellow2 from "../Components/Buttons/ButtonYellow2";
+import ButtonYellow2 from "../../../Components/Buttons/ButtonYellow2";
 import { useEffect, useState } from "react";
 import { CurrentView } from "./types";
 

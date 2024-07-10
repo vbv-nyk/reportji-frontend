@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useRef } from "react";
-import ButtonYellow1 from "../Components/Buttons/ButtonYellow1";
+import ButtonYellow1 from "../../../Components/Buttons/ButtonYellow1";
 import { ReportGenCommonProps } from "./common";
-import { Page } from "../types/types";
+import { Page } from "../../../types/types";
 import { CurrentView } from "./types";
 
 export default function Step1(props: ReportGenCommonProps) {

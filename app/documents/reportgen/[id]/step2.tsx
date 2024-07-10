@@ -10,13 +10,13 @@ import {
   useRef,
   useState,
 } from "react";
-import ButtonYellow1 from "../Components/Buttons/ButtonYellow1";
-import ButtonYellow2 from "../Components/Buttons/ButtonYellow2";
-import { ElementParentType, Page, Pages, PdfElement } from "../types/types";
+import ButtonYellow1 from "../../../Components/Buttons/ButtonYellow1";
+import ButtonYellow2 from "../../../Components/Buttons/ButtonYellow2";
+import { ElementParentType, Page, Pages, PdfElement } from "../../../types/types";
 import getElementName, {
   getElementType,
   getParentType,
-} from "../types/elements";
+} from "../../../types/elements";
 import Accordion from "./Accordion/accordion";
 import { ReportGenCommonProps, TakeInput } from "./common";
 import { CurrentView } from "./types";
