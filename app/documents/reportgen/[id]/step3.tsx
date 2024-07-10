@@ -69,7 +69,7 @@ export default function Step3(props: ReportGenCommonProps) {
         <div className="h-screen">
           {pdfData.length > 0 && (
             <object
-              data={`data:application/pdf;base64,${pdfData}`}
+              data={`${pdfData}`}
               // type="application/pdf"
               width="100%"
               height="100%"
