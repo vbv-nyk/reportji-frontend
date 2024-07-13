@@ -24,7 +24,10 @@ export default function Step3(props: ReportGenCommonProps) {
   const { setOutputData } = props;
   const [getPDF, { loading, error }] = useMutation(RETRIEVE_PDF);
   const [pdfData, setPdfData] = useState<string>("");
+<<<<<<< HEAD
   const [timestamp, setTimestamp] = useState<number>(0);
+=======
+>>>>>>> e5ee1ed (Initial commit)
   const { outputData, setCurrentView, documentID } = props;
   async function retrievePDF() {
     try {
@@ -34,8 +37,11 @@ export default function Step3(props: ReportGenCommonProps) {
       const base64PDF = data.data.CreatePDF.pdf;
       console.log(data);
       setPdfData(base64PDF);
+<<<<<<< HEAD
       const datetime = new Date().getTime();
       setTimestamp(datetime);
+=======
+>>>>>>> e5ee1ed (Initial commit)
     } catch (e) {
       console.error("Error occured", e);
     }
@@ -80,7 +86,11 @@ export default function Step3(props: ReportGenCommonProps) {
         <div className="h-screen">
           {pdfData.length > 0 && (
             <object
+<<<<<<< HEAD
               data={`${pdfData}?v=${timestamp}`}
+=======
+              data={`${pdfData}`}
+>>>>>>> e5ee1ed (Initial commit)
               // type="application/pdf"
               width="100%"
               height="100%"
