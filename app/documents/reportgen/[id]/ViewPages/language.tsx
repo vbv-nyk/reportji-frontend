@@ -88,7 +88,7 @@ export function PageToJi(pages: Pages): string {
           });
           const verbatim = `${returnBlankSpace(2)}"\\begin{lstlisting}\n|${content}|\n${returnBlankSpace(2)}\\end{lstlisting}"`;
           outputPage.elements.push(
-            `${returnBlankSpace(1)}paragraphs: [\n${verbatim}\n];`
+            `${returnBlankSpace(1)}paragraphs: [\n${verbatim}\n${returnBlankSpace(1)}];`
           );
         } else {
           const paragraphs = element.element.content.map((line, index) => {

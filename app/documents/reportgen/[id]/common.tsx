@@ -191,9 +191,10 @@ export function TakeInput(props: Step2Props) {
     if (textAreaElement != null && parentType == ElementParentType.VECTOR) {
       if (textAreaElement.current) {
         content = textAreaElement.current.value;
+        content = content.replaceAll("\n\n", "\n");
+        console.log(content);
         if (content === "") return;
         let lines =  content.split('\n');
-        console.log(lines);
         if (editIndex === -1) {
           setPage({
             name: page.name,
