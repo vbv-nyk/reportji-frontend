@@ -54,7 +54,7 @@ export default function ViewPages(props: ReportGenCommonProps) {
   async function generateReport() {
     if(!doc_ref.current || !doc_ref.current.value) return;
     let doc_name = doc_ref.current.value;
-    let inputJi = "stlyes = {\n}\n";
+    let inputJi = "styles = {\n}\n";
     console.log(pages);
     const pagesData = PageToJi(pages);
     inputJi = inputJi.concat(`pages = {\n${pagesData}\n}\n`);

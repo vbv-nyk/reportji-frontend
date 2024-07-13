@@ -14,6 +14,7 @@ const RETRIEVE_PDF = gql`
   mutation CreatePDF($texFile: String!, $docID: Int!) {
     CreatePDF(texFile: $texFile, docID: $docID) {
       pdf
+      document_id
     }
   }
 `;
@@ -23,6 +24,7 @@ export default function Step3(props: ReportGenCommonProps) {
   const { setOutputData } = props;
   const [getPDF, { loading, error }] = useMutation(RETRIEVE_PDF);
   const [pdfData, setPdfData] = useState<string>("");
+  const [timestamp, setTimestamp] = useState<number>(0);
   const { outputData, setCurrentView, documentID } = props;
   async function retrievePDF() {
     try {
@@ -32,6 +34,8 @@ export default function Step3(props: ReportGenCommonProps) {
       const base64PDF = data.data.CreatePDF.pdf;
       console.log(data);
       setPdfData(base64PDF);
+      const datetime = new Date().getTime();
+      setTimestamp(datetime);
     } catch (e) {
       console.error("Error occured", e);
     }
@@ -76,7 +80,7 @@ export default function Step3(props: ReportGenCommonProps) {
         <div className="h-screen">
           {pdfData.length > 0 && (
             <object
-              data={`${pdfData}`}
+              data={`${pdfData}?v=${timestamp}`}
               // type="application/pdf"
               width="100%"
               height="100%"

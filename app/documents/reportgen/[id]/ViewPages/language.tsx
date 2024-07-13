@@ -97,7 +97,7 @@ export function PageToJi(pages: Pages): string {
             return `${returnBlankSpace(2)}"${content}",`;
           });
           outputPage.elements.push(
-            `${returnBlankSpace(1)}${name}: [\n${paragraphs.join("\n")}\n];`
+            `${returnBlankSpace(1)}${name}: [\n${paragraphs.join("\n")}${returnBlankSpace(1)}\n];`
           );
         }
       } else if (
