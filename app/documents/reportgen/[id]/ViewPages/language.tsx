@@ -60,13 +60,18 @@ export function PageToJi(pages: Pages): string {
         Array.isArray(element.element.content)
       ) {
         if (element.element.type == ElementType.CODE) {
-          const paragraphs = element.element.content.map((line, index) => {
-            let content = replaceBracesWithContainers(line);
-            if (line != "") return `${returnBlankSpace(2)}"|${content}|",`;
-          });
+          let content: string | string[] = element.element.content.map(
+            (line) => {
+            line = line.replaceAll("\\n", "\\textbackslash n")
+              return line;
+            }
+          );
+          console.log(content);
+          content = content.join("\\\\");
+          content = replaceBracesWithContainers(content);
           const verbatim = `${returnBlankSpace(
             2
-          )}"\\begin{lstlisting}\n${paragraphs}\n${returnBlankSpace(
+          )}"\\begin{lstlisting}\n|${content}|\n${returnBlankSpace(
             2
           )}\\end{lstlisting}"`;
           outputPage.elements.push(
