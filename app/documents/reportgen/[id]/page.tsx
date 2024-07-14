@@ -48,6 +48,7 @@ export default function Page({ params }: { params: { id: number } }) {
           `,
           variables: { document_id: documentID ? documentID : +params.id},
         });
+        setDocumentID(+params.id);
         setPages(JSON.parse(data.data.DocumentByID.pages));
       } catch (e) {
         console.log(documentID, params.id);

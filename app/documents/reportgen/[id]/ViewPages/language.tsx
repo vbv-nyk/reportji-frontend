@@ -17,22 +17,20 @@ function returnBlankSpace(times: number): string {
 }
 
 function replaceBracesWithContainers(content: string) {
-  content = content.replaceAll(
-    /\{.*\}/g,
-    (match) => `\\curly{${match.substring(1, match.length - 1)}}`
-  );
-  content = content.replaceAll(
-    /\[.*\]/g,
-    (match) => `\\square{${match.substring(1, match.length - 1)}}`
-  );
-  content = content.replaceAll(
-    /\".*\"/g,
-    (match) => `\\quotes{${match.substring(1, match.length - 1)}}`
-  );
-  content = content.replaceAll(
-    /\(.*\)/g,
-    (match) => `\\round{${match.substring(1, match.length - 1)}}`
-  );
+  content = content.replaceAll(/\\/g, (match) => `\\backslash{}`);
+  content = content.replaceAll(/\{/g, (match) => `\\ocurly{}`);
+  content = content.replaceAll(/\}/g, (match) => `\\ccurly{}`);
+  content = content.replaceAll(/\[/g, (match) => `\\osquare{}`);
+  content = content.replaceAll(/\]/g, (match) => `\\csquare{}`);
+  content = content.replaceAll(/\"/g, (match) => `\\quotes{}`);
+  content = content.replaceAll(/\(/g, (match) => `\\round{}`);
+  content = content.replaceAll(/\)/g, (match) => `\\round{}`);
+  content = content.replaceAll("#", "\\#");
+  content = content.replaceAll("%", "\\%");
+  content = content.replaceAll("$", "\\$");
+  content = content.replaceAll("#", "\\#");
+  content = content.replaceAll("&", "\\&");
+  content = content.replaceAll("_", "\\_");
   console.log(content);
   return content;
 }
@@ -62,11 +60,12 @@ export function PageToJi(pages: Pages): string {
         Array.isArray(element.element.content)
       ) {
         if (element.element.type == ElementType.CODE) {
-          let content: string | string[] = element.element.content.map((line) => {
-            line = line.replaceAll("\\", "\\\\");
-            line =  line.replaceAll("\\n", "")
-            return line;
-          }
+          let content: string | string[] = element.element.content.map(
+            (line) => {
+              line = line.replaceAll("\\", "\\\\");
+              line = line.replaceAll("\\n", "");
+              return line;
+            }
           );
           console.log(content);
           content = content.join("\\\\");
@@ -86,15 +85,18 @@ export function PageToJi(pages: Pages): string {
           content = content.replaceAll(/\[(.*?)\]/g, (match) => {
             return ` \\square{${match.substring(1, match.length - 1)}} `;
           });
-          const verbatim = `${returnBlankSpace(2)}"\\begin{lstlisting}\n|${content}|\n${returnBlankSpace(2)}\\end{lstlisting}"`;
+          const verbatim = `${returnBlankSpace(
+            2
+          )}"\\begin{lstlisting}\n|${content}|\n${returnBlankSpace(
+            2
+          )}\\end{lstlisting}"`;
           outputPage.elements.push(
             `${returnBlankSpace(1)}paragraphs: [\n${verbatim}\n${returnBlankSpace(1)}];`
           );
         } else {
           const paragraphs = element.element.content.map((line, index) => {
             let content = replaceBracesWithContainers(line);
-            console.log(content);
-            return `${returnBlankSpace(2)}"${content}",`;
+            if (line != "") return `${returnBlankSpace(2)}"${content}",`;
           });
           outputPage.elements.push(
             `${returnBlankSpace(1)}${name}: [\n${paragraphs.join("\n")}${returnBlankSpace(1)}\n];`
