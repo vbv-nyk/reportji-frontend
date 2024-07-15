@@ -18,8 +18,18 @@ import {
 import { useRef } from "react";
 
 const CREATE_FILE = gql`
-  mutation getOutputTex($inputJi: String!, $name: String!, $pagesData: String!, $docID: Int) {
-    CreateTexFile(inputJi: $inputJi, name: $name, pagesData: $pagesData, docID: $docID) {
+  mutation getOutputTex(
+    $inputJi: String!
+    $name: String!
+    $pagesData: String!
+    $docID: Int
+  ) {
+    CreateTexFile(
+      inputJi: $inputJi
+      name: $name
+      pagesData: $pagesData
+      docID: $docID
+    ) {
       err
       errMsg
       tex
@@ -28,8 +38,15 @@ const CREATE_FILE = gql`
   }
 `;
 export default function ViewPages(props: ReportGenCommonProps) {
-  const { setCurrentView, setCurrentPage, pages, setPages, setOutputData, documentID, setDocumentID} =
-    props;
+  const {
+    setCurrentView,
+    setCurrentPage,
+    pages,
+    setPages,
+    setOutputData,
+    documentID,
+    setDocumentID,
+  } = props;
 
   const [getReport, { loading, error }] = useMutation(CREATE_FILE);
   const doc_ref = useRef<HTMLInputElement>(null);
@@ -52,7 +69,7 @@ export default function ViewPages(props: ReportGenCommonProps) {
   }
 
   async function generateReport() {
-    if(!doc_ref.current || !doc_ref.current.value) return;
+    if (!doc_ref.current || !doc_ref.current.value) return;
     let doc_name = doc_ref.current.value;
     let inputJi = "styles = {\n}\n";
     console.log(pages);
@@ -60,11 +77,18 @@ export default function ViewPages(props: ReportGenCommonProps) {
     inputJi = inputJi.concat(`pages = {\n${pagesData}\n}\n`);
     inputJi = inputJi.concat("output = {\n}");
     try {
-      const data = await getReport({ variables: { inputJi, name: doc_name, pagesData: JSON.stringify(pages), docID: documentID} });
-    const { CreateTexFile } = data.data;
-    setOutputData(CreateTexFile.tex);
-    setDocumentID(CreateTexFile.document_id)
-    setCurrentView(CurrentView.REPORT_VIEW);
+      const data = await getReport({
+        variables: {
+          inputJi,
+          name: doc_name,
+          pagesData: JSON.stringify(pages),
+          docID: documentID,
+        },
+      });
+      const { CreateTexFile } = data.data;
+      setOutputData(CreateTexFile.tex);
+      setDocumentID(CreateTexFile.document_id);
+      setCurrentView(CurrentView.REPORT_VIEW);
     } catch (e) {
       console.log("Error: ", e);
     }
@@ -121,17 +145,11 @@ export default function ViewPages(props: ReportGenCommonProps) {
     }
   }
   function onDragEnd(result: DropResult) {
-    const pagesClone = pages.map((page) => page);
-    const { destination, source, draggableId } = result;
-
-    if (!destination) return;
-    if (destination.index == source.index) return;
-
-    [pagesClone[source.index], pagesClone[destination.index]] = [
-      pagesClone[destination.index],
-      pagesClone[source.index],
-    ];
-
+    const { destination, source } = result;
+    if (!destination || destination.index === source.index) return;
+    const pagesClone = Array.from(pages);
+    const [movedItem] = pagesClone.splice(source.index, 1);
+    pagesClone.splice(destination.index, 0, movedItem);
     setPages(pagesClone);
     localStorage.setItem("pages", JSON.stringify(pagesClone));
   }
@@ -148,11 +166,15 @@ export default function ViewPages(props: ReportGenCommonProps) {
         <ButtonYellow2 onClick={newChapter} content={"Add Page"} />
         {pages.length != 0 && (
           <div className="flex flex-col gap-2">
-          <input ref={doc_ref} placeholder="Enter the name of your report" className="p-2 rounded-xl text-center"/>
-          <ButtonYellow2
-            onClick={generateReport}
-            content={"Give Me My Report!!!"}
-          />
+            <input
+              ref={doc_ref}
+              placeholder="Enter the name of your report"
+              className="p-2 rounded-xl text-center"
+            />
+            <ButtonYellow2
+              onClick={generateReport}
+              content={"Give Me My Report!!!"}
+            />
           </div>
         )}
       </div>
