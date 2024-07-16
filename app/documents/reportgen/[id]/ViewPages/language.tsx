@@ -72,8 +72,8 @@ export function PageToJi(pages: Pages): string {
             let content = replaceBracesWithContainers(line);
             return `${content}`;
           });
-          let content = paragraphs.join("\\par");
-           content = (`${returnBlankSpace(2)}"\\codelst{${content}}"`)
+          let content = paragraphs.join(" \\par ");
+           content = (`${returnBlankSpace(2)}"\\codelst{ ${content} }"`)
           console.log(content)
           outputPage.elements.push(
             `${returnBlankSpace(1)}paragraphs: [\n${verbatim}\n${returnBlankSpace(1)}];`
