@@ -69,12 +69,19 @@ export function PageToJi(pages: Pages): string {
             return line !== "";
           });
           const paragraphs = nonEmptyParagraph.map((line, index) => {
-            let content = replaceBracesWithContainers(line);
-            return `${content}`;
+            let content = replaceBracesWithContainersCODE(line);
+            return `${returnBlankSpace(2)}"${content}",`;
           });
-          let content = paragraphs.join(" \\par ");
-           content = (`${returnBlankSpace(2)}"\\codelst{ \\par ${content} }"`)
-          console.log(content)
+          const total = paragraphs.length;
+          paragraphs[0] = `${returnBlankSpace(2)}"\\begin{lstlisting}${paragraphs[0].slice(
+            paragraphs[0].indexOf('"') + 1
+          )}`;
+          const last_line_length = paragraphs[total - 1].length;
+          paragraphs[total - 1] = `${paragraphs[total - 1].substring(
+            0,
+            last_line_length - 2
+          )}\n\\end{lstlisting}"`;
+          console.log(paragraphs.join("\n"));
           outputPage.elements.push(
             `${returnBlankSpace(1)}paragraphs: [\n${verbatim}\n${returnBlankSpace(1)}];`
           );
@@ -89,7 +96,7 @@ export function PageToJi(pages: Pages): string {
             let content = replaceBracesWithContainers(line);
             return `${returnBlankSpace(2)}"${content}",`;
           });
-           console.log(paragraphs.join("\n"))
+          console.log(paragraphs.join("\n"));
           outputPage.elements.push(
             `${returnBlankSpace(1)}${name}: [\n${paragraphs.join("\n")}${returnBlankSpace(1)}\n];`
           );
